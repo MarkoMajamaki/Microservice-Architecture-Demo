@@ -1,0 +1,28 @@
+parameters:
+  env: ''
+  
+jobs:
+  - job: Plan
+    displayName: Plan and validate infra changes
+    variables:
+      working_directory: '$(System.DefaultWorkingDirectory)/infra/enviroments/${{ parameters.env }}'
+    steps:      
+    # Initialize Terraform
+    - template: initialize_tf.yml
+        
+    # Plan Terraform changes and save plan to tfplan file
+    - task: TerraformTaskV1@0
+      displayName: Plan Terraform changes
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        workingDirectory: '$(working_directory)'
+        commandOptions: '-out=tfplan'
+        environmentServiceNameAzureRM: 'AzureServiceConnection'
+
+    # Save plan file as artifact      
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(working_directory)/tfplan'
+        ArtifactName: 'tfplan'
+        publishLocation: 'Container'

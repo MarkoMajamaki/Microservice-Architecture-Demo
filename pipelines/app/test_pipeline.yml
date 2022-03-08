@@ -1,0 +1,19 @@
+# Run test always when created pull request to main
+trigger: none
+pr:
+  branches:
+    include: 
+    - main
+  paths:
+    include:
+    - src
+    exclude:
+    - infra
+    - README.md
+    - .gitignore
+    - .vscode
+
+stages:
+- stage: Test
+  jobs:
+  - template: ../templates/test_server.yml

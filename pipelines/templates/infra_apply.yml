@@ -1,0 +1,32 @@
+parameters:
+  env: ''
+
+jobs:
+- deployment: Deploy
+  displayName: Apply infra changes
+  enviroment: Infra-${{ parameters.env }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        # Download TF plan artifact
+        - task: DownloadBuildArtifacts@1
+          inputs:
+            buildType: 'current'
+            downloadType: 'single'
+            artifactName: 'tfplan'
+            downloadPath: '$(Agent.WorkFolder)/tfplan'
+            
+        # Initialize Terraform
+        - template: initialize_tf.yml
+        
+        # Apply Terraform changes
+        - task: TerraformTaskV1@0
+          displayName: Terraform apply
+          name: TerraformApply
+          inputs:
+            provider: 'azurerm'
+            command: 'apply'
+            workingDirectory: '$(Agent.WorkFolder)'
+            commandOptions: 'tfplan'
+            environmentServiceNameAzureRM: 'AzureServiceConnection'

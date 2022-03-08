@@ -1,0 +1,23 @@
+resources:
+- ../../base
+
+images:
+- name: microservice_demo/order-api
+  newName: microservicedemoacrprod.azurecr.io/order-api
+  newTag: latest
+- name: microservice_demo/identity-api
+  newName: microservicedemoacrprod.azurecr.io/identity-api
+  newTag: latest
+- name: microservice_demo/frontend
+  newName: microservicedemoacrprod.azurecr.io/frontend
+  newTag: latest
+
+patches:
+- path: akv-identity-api-patch.json
+  target:
+      kind: Deployment
+      name: identity-api
+- path: akv-order-api-patch.json
+  target:
+      kind: Deployment
+      name: order-api

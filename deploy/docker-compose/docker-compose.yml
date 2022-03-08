@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+
+  orderapi:
+    image: test_automation_demo/order-api:latest
+    container_name: orderapi
+    restart: on-failure   
+    build:
+      context: ../../
+      dockerfile: src/modules/order/backend/Dockerfile
+    depends_on: 
+      - sqlserver
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    env_file: 
+      - ./order-api.env
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+    ports:
+      - "5001:5000"
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "loc4LdevP4ss#"
+    volumes:
+      - ../../.sqlserver:/var/opt/mssql/data

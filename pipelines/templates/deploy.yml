@@ -1,0 +1,32 @@
+parameters:
+  env: ''
+
+jobs:
+- deployment: Deploy
+  displayName: Deploy to ACR
+  enviroment: App-${{ parameters.env }}
+  strategy:
+    runOnce:
+      deploy:
+        steps:
+        # Download manifests from artifacts
+        - task: DownloadPipelineArtifact@2
+          displayName: Download K8S manifets
+          inputs:
+            buildType: 'current'
+            artifactName: 'manifets'
+            targetPath: 'kubernetes'
+        
+        # Use AKS
+        - task: AzureCLI@2
+          inputs:
+            azureSubscription: 'AzureServiceConnection'
+            scriptType: 'bash'
+            scriptLocation: 'inlineScript'
+            inlineScript: 'az aks get-credentials --resource-group microservice_demo --name microservicedemoaks${{ parameters.env }}'
+          displayName: Get AKS credentials
+
+        # Apply manifests from correct enviroment foder using Kustomize 
+          - bash: |
+              kubectl apply -k kubernetes/enviroments/${{ parameters.env }}
+            displayName: Apply K8S manifests

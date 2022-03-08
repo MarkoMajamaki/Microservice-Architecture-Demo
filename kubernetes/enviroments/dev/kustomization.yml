@@ -1,0 +1,16 @@
+bases:
+  - ../../base/
+resources:
+  - order-api-secrets.yml
+  - identity-api-secrets.yml
+  - rabbitmq-secrets.yml
+
+patches:
+- path: identity-api-secrets-patch.json
+  target:
+    kind: Deployment
+    name: identity-api
+- path: order-api-secrets-patch.json
+  target:
+    kind: Deployment
+    name: order-api

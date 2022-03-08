@@ -1,0 +1,13 @@
+trigger: none
+pr: none
+
+variables:
+- name: env
+  value: variables['Build.SourceBranchName']
+
+stages:
+- stage: Desroy
+  jobs:
+  - template: stages/infra_validate.yml
+    parameters:
+      env: $(env)

@@ -1,0 +1,18 @@
+parameters:
+  env: ''
+
+jobs:
+  - job: Plan
+    displayName: Plan and validate infra changes
+    steps:      
+    # Initialize Terraform
+    - template: initialize_tf.yml
+        
+    # Validate Terraform changes
+    - task: TerraformTaskV1@0
+      displayName: Validate Terraform changes
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/${{ parameters.env }}'
+        environmentServiceNameAzureRM: 'AzureServiceConnection'

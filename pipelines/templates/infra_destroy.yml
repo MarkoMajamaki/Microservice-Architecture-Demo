@@ -1,0 +1,18 @@
+parameters:
+  env: ''
+
+jobs:
+  - job: Destroy
+    displayName: Destroy infra
+    steps:      
+    # Initialize Terraform
+    - template: initialize_tf.yml
+        
+    # Destroy Terraform infrastructure
+    - task: TerraformTaskV1@0
+      displayName: Validate Terraform changes
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/infra/enviroments/${{ parameters.env }}'
+        environmentServiceNameAzureRM: 'AzureServiceConnection'

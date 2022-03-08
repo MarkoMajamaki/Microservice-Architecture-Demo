@@ -1,0 +1,32 @@
+[
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/0/volumeMounts",
+    "value": 
+    [
+      {
+        "name": "app-secrets", 
+        "mountPath": "/secrets", 
+        "readOnly": true
+      }
+    ]
+    
+  },
+  {
+    "op": "add",
+    "path": "/spec/template/spec/volumes",
+    "value": 
+    [
+      {
+        "name": "app-secrets",
+        "csi": {
+          "driver": "secrets-store.csi.k8s.io",
+          "readOnly": true,
+          "volumeAttributes": {
+            "secretProviderClass": "identity-api-secrets"
+          }
+        }
+      }
+    ]
+  }
+]

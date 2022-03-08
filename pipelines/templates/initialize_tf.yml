@@ -1,0 +1,22 @@
+parameters:
+  env: ''
+
+steps:
+# Install Terraform
+- task: TerraformInstaller@0
+  displayName: Install Terraform
+  inputs:
+    terraformVersion: '1.0.10'
+
+# Initialize Terraform
+- task: TerraformTaskV1@0
+  displayName: Initialize Terraform
+  inputs:
+    provider: 'azurerm'
+    command: 'init'
+    workingDirectory: '$(System.SourceDictionary)/infra/enviroments/${{ parameters.env }}'
+    backendServiceArm: 'AzureServiceConnection'
+    backendAzureRmResourceGroupName: 'microservice-demo-${{ parameters.env }}-rg'
+    backendAzureRmStorageAccountName: 'microservicedemosa'
+    backendAzureRmContainerName: 'microservice-demo-tfstate-c'
+    backendAzureRmKey: '${{ parameters.env }}.tfstate'

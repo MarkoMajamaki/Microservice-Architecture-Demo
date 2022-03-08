@@ -1,0 +1,39 @@
+# Do deployment always when pushed changes to beta or prod branch source code or K8S manifests
+pr: none
+trigger:
+  branches:
+    include: 
+    - beta
+    - prod
+  paths:
+    exclude:
+    - infra
+    - README.md
+    - .gitignore
+    - .vscode
+
+variables:
+- name: env
+  value: variables['Build.SourceBranchName']
+
+stages:
+- stage: Test
+  jobs:
+  - template: ../templates/test.yml
+- stage: Build
+  jobs:
+  - template: ../templates/build.yml
+  
+  # Save yml manifests for deployment stage   
+  - task: PublishBuildArtifacts@1
+    displayName: Save yml manifests for deployment
+    inputs:
+      PathtoPublish: '$(Build.SourcesDirectory)/kubernetes'
+      ArtifactName: 'manifests'
+      publishLocation: 'Container'
+
+- stage: Deploy
+  jobs:
+  - template: ../templates/deploy.yml
+    parameters:
+      env: $(env)

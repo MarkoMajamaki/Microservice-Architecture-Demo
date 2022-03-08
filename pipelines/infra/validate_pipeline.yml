@@ -1,0 +1,21 @@
+# Trigger if done pull request to beta or prod branch including changes ton infra folder
+trigger: none
+pr:
+  branches:
+    include: 
+    - beta
+    - prod
+  paths:
+    include:
+    - infra
+    
+variables:
+- name: env
+  value: variables['Build.SourceBranchName']
+
+stages:
+- stage: Validate
+  jobs:
+  - template: stages/infra_validate.yml
+    parameters:
+      env: $(env)
