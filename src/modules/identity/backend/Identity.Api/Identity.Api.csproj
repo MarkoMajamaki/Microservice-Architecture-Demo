@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Identity.Application\Identity.Application.csproj" />
     <ProjectReference Include="..\Identity.Infrastructure\Identity.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\..\core\backend\Shared.Api\Shared.Api.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\backend\Shared.Api\Shared.Api.csproj" />
   </ItemGroup>
 
 </Project>

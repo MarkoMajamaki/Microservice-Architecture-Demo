@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build_orderapi",
             "command": "dotnet",
             "type": "process",
             "args": [
@@ -14,28 +14,65 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "publish",
+            "label": "build_identityapi",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "publish",
-                "${workspaceFolder}/src/modules/order/backend/Order.Api/Order.Api.csproj",
+                "build",
+                "${workspaceFolder}/src/modules/identity/backend/Identity.Api/Identity.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "watch",
+            "label": "build_order_migrations",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "watch",
-                "run",
-                "--project",
-                "${workspaceFolder}/src/modules/order/backend/Order.Api/Order.Api.csproj"
+                "build",
+                "${workspaceFolder}/src/modules/order/backend/Tools/Order.Migrations/Order.Migrations.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
             ],
             "problemMatcher": "$msCompile"
-        }
+        },
+        {
+            "label": "build_identity_migrations",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/modules/identity/backend/Tools/Identity.Migrations/Identity.Migrations.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build_order_dbpopulator",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/modules/order/backend/Tools/Order.DbPopulator/Order.DbPopulator.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build_identity_dbpopulator",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/modules/identity/backend/Tools/Identity.DbPopulator/Identity.DbPopulator.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+
     ]
 }

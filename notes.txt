@@ -1,1 +1,36 @@
 https://ardalis.com/running-integration-tests-in-build-pipelines-with-a-real-database/
+
+Deploying a Docker Container in Azure App Service using an Azure DevOps Pipeline
+https://www.youtube.com/watch?v=xubKJB5MjXA
+
+Envoy ja sertifikaatit
+https://myview.rahulnivi.net/api-gateway-envoy-docker/
+
+Understanding the Basics of Envoy Configuration
+https://www.youtube.com/watch?v=E-UpGmj6B9M
+
+-----
+Envoy
+
+Listeners: 
+- Tapa jolla envoy vastaanottaa kutsuja
+  > Ip osoite ja portti. 
+  > 0 taroittaa mikä tahansa osoite
+  > Kuorma sidotaan IP ositteeseen ja porttiin ja lähetetään lopulliseen osoitteeseen
+Filtters:
+- Löytyvät listenereiltä
+- Manipuloidaan kuormaa
+- TCP proxy filter
+- HTTP filter pystyy käyttämään kaikkea HTTP kutsun tietoja filtteröintiin. Mitä tehdään tälle kutsulle?
+  > HTTP filter mahdollistaa Routes käytön
+  > Tämä on se mitä halutaan!
+Cluster:
+- Flitterit lähettävät kutsun clusterille
+- Määrittää kutsujen päämäärän
+- Clusterilla on yksi tai enemmän endpointteja
+- Loadbalancer (alogirtmi voi olla esim round robint jne.)
+Endpoint:
+- Lopullinen päämäärä johon kutsu lähetetään clustrilta
+
+
+----

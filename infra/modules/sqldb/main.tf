@@ -7,11 +7,12 @@ resource "azurerm_mssql_database" "db" {
   license_type   = "LicenseIncluded"
   read_scale     = var.read_scale
   zone_redundant = var.zone_redundant
+}
 
-  extended_auditing_policy {
-    storage_endpoint                        = var.storage_endpoint
-    storage_account_access_key              = var.storage_account_access_key
-    storage_account_access_key_is_secondary = true
-    retention_in_days                       = 6
-  }
+resource "azurerm_mssql_database_extended_auditing_policy" "auditing_policy" {
+  database_id                             = azurerm_mssql_database.db.id
+  storage_endpoint                        = var.storage_endpoint
+  storage_account_access_key              = var.storage_account_access_key
+  storage_account_access_key_is_secondary = true
+  retention_in_days                       = 6  
 }

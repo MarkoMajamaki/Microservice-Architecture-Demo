@@ -42,7 +42,7 @@ variable "sql_server_password" {
   type = string  
 }
 
-variable "microservice_db_name" {
+variable "order_db_name" {
   type = string    
 }
 

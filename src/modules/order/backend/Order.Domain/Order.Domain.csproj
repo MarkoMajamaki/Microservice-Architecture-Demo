@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\core\backend\Shared.Domain\Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\backend\Shared.Domain\Shared.Domain.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

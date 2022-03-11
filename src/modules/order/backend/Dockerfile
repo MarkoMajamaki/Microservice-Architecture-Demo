@@ -1,12 +1,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 5000
+EXPOSE 80
 EXPOSE 443
-
-ENV ASPNETCORE_URLS=http://*:5000
-
-RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
-USER appuser
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
@@ -15,15 +10,15 @@ COPY ["src/modules/order/backend/Order.Application/Order.Application.csproj", "m
 COPY ["src/modules/order/backend/Order.Infrastructure/Order.Infrastructure.csproj", "modules/order/backend/Order.Infrastructure/"]
 COPY ["src/modules/order/backend/Order.Domain/Order.Domain.csproj", "modules/order/backend/Order.Domain/"]
 
-COPY ["src/core/backend/Shared.Api/Shared.Api.csproj", "src/core/backend/Shared.Api/"]
-COPY ["src/core/backend/Shared.Application/Shared.Application.csproj", "src/core/backend/Shared.Application/"]
-COPY ["src/core/backend/Shared.Domain/Shared.Domain.csproj", "src/core/backend/Shared.Domain/"]
-COPY ["src/core/backend/Shared.Infrastructure/Shared.Infrastructure.csproj", "src/core/backend/Shared.Infrastructure/"]
+COPY ["src/shared/backend/Shared.Api/Shared.Api.csproj", "src/shared/backend/Shared.Api/"]
+COPY ["src/shared/backend/Shared.Application/Shared.Application.csproj", "src/shared/backend/Shared.Application/"]
+COPY ["src/shared/backend/Shared.Domain/Shared.Domain.csproj", "src/shared/backend/Shared.Domain/"]
+COPY ["src/shared/backend/Shared.Infrastructure/Shared.Infrastructure.csproj", "src/shared/backend/Shared.Infrastructure/"]
 
 RUN dotnet restore "modules/order/backend/Order.Api/Order.Api.csproj"
 
 COPY "src/modules/order/backend" "modules/order/backend/"
-COPY "src/core/backend" "core/backend/"
+COPY "src/shared/backend" "shared/backend/"
 
 WORKDIR "/src/modules/order/backend/Order.Api/"
 RUN dotnet build "Order.Api.csproj" -c Release -o /app/build

@@ -10,7 +10,7 @@
     <ProjectReference Include="..\..\Identity.Api\Identity.Api.csproj" />
     <ProjectReference Include="..\..\Identity.Application\Identity.Application.csproj" />
     <ProjectReference Include="..\..\Identity.Infrastructure\Identity.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\..\..\core\backend\Tests\Shared.IntegrationTest\Shared.IntegrationTest.csproj" />
+    <ProjectReference Include="..\..\..\..\..\shared\backend\Tests\Shared.IntegrationTest\Shared.IntegrationTest.csproj" />
   </ItemGroup>
 
   <ItemGroup>

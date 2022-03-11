@@ -11,7 +11,8 @@ public class OrderContext : DbContext
     private readonly IIdentityService _identityService;
     // private readonly IDomainEventService _domainEventService;
     private readonly IDateTimeService _dateTimeService;
- 
+    
+    public DbSet<Customer> Customer { get; set; }
     public DbSet<Order.Domain.Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
     public DbSet<Product> Products { get; set; }
@@ -28,7 +29,7 @@ public class OrderContext : DbContext
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-    {        
+    {      
         // Add auditing values for debugging to all entities
         foreach (var entry in ChangeTracker.Entries<Entity>())
         {

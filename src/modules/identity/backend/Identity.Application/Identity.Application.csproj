@@ -3,8 +3,8 @@
   <ItemGroup>
     <PackageReference Include="MediatR" Version="10.0.1" />
     <ProjectReference Include="..\Identity.Domain\Identity.Domain.csproj" />
-    <ProjectReference Include="..\..\..\..\core\backend\Shared.Application\Shared.Application.csproj" />
-    <ProjectReference Include="..\..\..\..\core\backend\Shared.Domain\Shared.Domain.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\backend\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\backend\Shared.Domain\Shared.Domain.csproj" />
 
     <PackageReference Include="Google.Apis.Auth" Version="1.55.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />

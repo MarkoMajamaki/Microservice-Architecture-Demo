@@ -1,17 +1,70 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "compounds": [
+        {
+            "name": "All",
+            "configurations": ["IdentityApi", "OrderApi", "Frontend (Web)"]
+        },
+        {
+            "name": "Server",
+            "configurations": ["IdentityApi", "OrderApi"]
+        },
+        {
+            "name": "Run migrations",
+            "configurations": ["Order Migrations", "Identity Migrations"]
+        },
+        {
+            "name": "Run database populators",
+            "configurations": ["Order DbPopulator", "Identity DbPopulator"]
+        },
+    ],
     "configurations": [
+        //
+        // Client
+        //
+        {
+            "name": "Frontend (Web)",
+            "type": "dart",
+            "request": "launch",
+            "program": "src/app/frontend/lib/main.dart",
+            "args": ["--web-port", "5001"],
+            "deviceId": "chrome",
+        },
+        //
+        //  Server
+        //
         {
             "name": "OrderApi",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "build_orderapi",
             "program": "${workspaceFolder}/src/modules/order/backend/Order.Api/bin/Debug/net6.0/Order.Api.dll",
             "args": [],
             "cwd": "${workspaceFolder}/src/modules/order/backend/Order.Api",
+            "stopAtEntry": false,           
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=order-db;User=sa;Password=loc4LdevP4ss#"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        {
+            "name": "IdentityApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_identityapi",
+            "program": "${workspaceFolder}/src/modules/identity/backend/Identity.Api/bin/Debug/net6.0/Identity.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/modules/identity/backend/Identity.Api",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
@@ -19,10 +72,106 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "CONNECTIONSTRING": "sqlserver,1433;Initial Catalog=order-db;User=sa;Password=loc4LdevP4ss#"
+                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=identity-db;User=sa;Password=loc4LdevP4ss#"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        //
+        // Docker
+        //
+        {
+            "name": "Docker Attach",
+            "type": "docker",
+            "request": "attach",
+            "platform": "netCore",
+            "sourceFileMap": {
+                "/src": "${workspaceFolder}"
+            }, 
+            "netCore": {
+                "debuggerPath": "/remote_debugger/vsdbg"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        //
+        // Migrations
+        //
+        {
+            "name": "Order Migrations",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_order_migrations",
+            "program": "${workspaceFolder}/src/modules/order/backend/Tools/Order.Migrations/bin/Debug/net6.0/Order.Migrations.dll",
+            "args": ["-ip", "localhost", "-port", "1433", "-u", "sa", "-n", "order-db", "-p", "loc4LdevP4ss#"],
+            "cwd": "${workspaceFolder}/src/modules/order/backend/Tools/Order.Migrations",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "launchBrowser": {
+                "enabled": false,                
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        {
+            "name": "Identity Migrations",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_identity_migrations",
+            "program": "${workspaceFolder}/src/modules/identity/backend/Tools/Identity.Migrations/bin/Debug/net6.0/Identity.Migrations.dll",
+            "args": ["-ip", "localhost", "-port", "1433", "-u", "sa", "-n", "identity-db", "-p", "loc4LdevP4ss#"],
+            "cwd": "${workspaceFolder}/src/modules/identity/backend/Tools/Identity.Migrations",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "launchBrowser": {
+                "enabled": false,
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        //
+        // Database populator
+        //
+        {
+            "name": "Order DbPopulator",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_order_dbpopulator",
+            "program": "${workspaceFolder}/src/modules/order/backend/Tools/Order.DbPopulator/bin/Debug/net6.0/Order.DbPopulator.dll",
+            "args": ["-ip", "localhost", "-port", "1433", "-u", "sa", "-n", "order-db", "-p", "loc4LdevP4ss#"],
+            "cwd": "${workspaceFolder}/src/modules/order/backend/Tools/Order.DbPopulator",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "launchBrowser": {
+                "enabled": false,                
+            },
+            "justMyCode": false,
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        {
+            "name": "Identity DbPopulator",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_identity_populator",
+            "program": "${workspaceFolder}/src/modules/identity/backend/Tools/Identity.DbPopulator/bin/Debug/net6.0/Identity.DbPopulator.dll",
+            "args": ["-ip", "localhost", "-port", "1433", "-u", "sa", "-n", "identity-db", "-p", "loc4LdevP4ss#"],
+            "cwd": "${workspaceFolder}/src/modules/identity/backend/Tools/Identity.DbPopulator",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "launchBrowser": {
+                "enabled": false,
+            },
+            "logging": {
+                "moduleLoad": false
             }
         },
     ]

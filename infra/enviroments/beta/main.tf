@@ -20,16 +20,16 @@ module "acr" {
   ]
 }
 
-module "aks" {
-  source = "./../../modules/aks"
-  acr_id = module.acr.acr_id
-  cluster_name = var.cluster_name
-  kubernetes_version = var.kubernetes_version
-  location = var.location
-  rg_name = module.rg.name
-  node_count = var.node_count
-  vm = var.vm
-}
+# module "aks" {
+#   source = "./../../modules/aks"
+#   acr_id = module.acr.acr_id
+#   cluster_name = var.cluster_name
+#   kubernetes_version = var.kubernetes_version
+#   location = var.location
+#   rg_name = module.rg.name
+#   node_count = var.node_count
+#   vm = var.vm
+# }
 
 module "kv" {
   source = "./../../modules/kv"

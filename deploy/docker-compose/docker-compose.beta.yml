@@ -1,0 +1,74 @@
+version: "3.9"
+
+services:
+
+  gateway:
+    image: microservice_demo/gateway
+    container_name: gateway
+    build:
+      context: ../../
+      dockerfile: src/gateway/Dockerfile
+    ports:
+      - "8001:8001"
+      - "8000:80"
+    volumes:
+      - ../../src/gateway/envoy.yml:/etc/envoy/envoy.yaml
+
+  frontend:
+    image: microservicedemoacrbeta.azurecr.io/frontend:latest
+    container_name: frontend
+    build:
+      context: ../../
+      dockerfile: src/app/frontend/Dockerfile
+    ports:
+      - "80"
+
+  identityapi:
+    image: microservicedemoacrbeta.azurecr.io/identity-api:latest
+    container_name: identityapi
+    restart: on-failure
+    build:
+      context: ../../
+      dockerfile: src/modules/identity/backend/Dockerfile
+    depends_on: 
+      - sqlserver
+      - rabbitmq
+    env_file: 
+      - ./identity-api.env
+      - ./rabbitmq.env
+      - ./jwt.env
+    ports:
+      - "80"
+
+  orderapi:
+    image: microservicedemoacrbeta.azurecr.io/order-api:latest
+    container_name: orderapi
+    restart: on-failure   
+    build:
+      context: ../../
+      dockerfile: src/modules/order/backend/Dockerfile
+    depends_on: 
+      - sqlserver
+      - rabbitmq
+    env_file: 
+      - ./order-api.env
+      - ./rabbitmq.env
+      - ./jwt.env
+    ports:
+      - "80"
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "loc4LdevP4ss#"
+    ports:
+      - "1433"
+  
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672"
+      - "15672"
