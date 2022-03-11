@@ -2,3 +2,6 @@ bin
 obj
 .volumes
 .result
+.terraform
+.terraform.lock.hcl
+tfplan

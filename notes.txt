@@ -9,6 +9,21 @@ https://myview.rahulnivi.net/api-gateway-envoy-docker/
 Understanding the Basics of Envoy Configuration
 https://www.youtube.com/watch?v=E-UpGmj6B9M
 
+web-app-container
+https://registry.terraform.io/modules/innovationnorway/web-app-container/azurerm/latest
+
+AKV + Terraform + APp service
+https://medium.com/pernod-ricard-tech/how-to-properly-manage-secrets-in-azure-app-service-with-terraform-44bc1ab99a02
+
+1:21:00 eteenpäin sertifikaattien asennus
+https://www.youtube.com/watch?v=UsoH5cqE1OA
+
+eShopOnContainers
+https://github.com/dotnet-architecture/eShopOnContainers/tree/dev/src/Services/Catalog/Catalog.API
+
+Deploying a Docker based web application to Azure App Service
+https://azuredevopslabs.com/labs/vstsextend/docker/
+
 -----
 Envoy
 
@@ -31,6 +46,5 @@ Cluster:
 - Loadbalancer (alogirtmi voi olla esim round robint jne.)
 Endpoint:
 - Lopullinen päämäärä johon kutsu lähetetään clustrilta
-
 
 ----

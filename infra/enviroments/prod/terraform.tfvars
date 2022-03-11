@@ -1,18 +1,22 @@
+# Basic
 location="northeurope"
 rg_name="microservice-demo-prod-rg"
 acr_name="microservicedemoacrprod"
+kv_name="microservicedemokvprod"
+# AKS
 cluster_name="microservicedemoaksprod"
 kubernetes_version="1.21.2"
 node_count=1
-vm="Standard_A4_v2"
-kv_name="microservicedemokvprod"
-sql_server_name="microservice-demo-sqlserver-prod"
-sql_server_username="sql_server_username"
+aks_vm="Standard_A4_v2"
+# Database
+sql_server_name="sqlserver-prod"
+sql_server_username="microservicedemouser"
 sql_server_password="4-v3ry-53cr37-p455w0rd"
-microservice_db_name="microservice-db-prod"
+order_db_name="order-db-prod"
 identity_db_name="identity-db-prod"
 sql_server_storage_account_name="sqlserversaprod"
-app_service_name="microservice-demo-app-service"
-service_plan_name="microservice-demo-app-service-plan"
+# App Service
+app_service_name="app-service-prod"
+service_plan_name="app-service-plan-prod"
 service_plan_tier="Basic"
 service_plan_size="B1"

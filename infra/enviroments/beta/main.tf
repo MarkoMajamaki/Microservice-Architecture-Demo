@@ -28,8 +28,22 @@ module "acr" {
 #   location = var.location
 #   rg_name = module.rg.name
 #   node_count = var.node_count
-#   vm = var.vm
+#   vm = var.aks_vm
 # }
+
+module "app_service" {
+  source = "./../../modules/appservice"
+  location = module.rg.location
+  rg_name = module.rg.name
+  service_plan_name = var.service_plan_name
+  service_plan_tier = var.service_plan_tier
+  service_plan_size = var.service_plan_size
+  app_service_name = var.app_service_name
+  docker_compose = filebase64("../../../deploy/docker-compose/docker-compose.beta.yml")
+  app_settings = {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+  }
+}
 
 module "kv" {
   source = "./../../modules/kv"

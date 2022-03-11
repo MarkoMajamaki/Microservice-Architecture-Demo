@@ -22,7 +22,7 @@ variable "node_count" {
   type = number 
 }
 
-variable "vm" {
+variable "aks_vm" {
   type = string 
 }
 
@@ -51,5 +51,21 @@ variable "identity_db_name" {
 }
 
 variable "sql_server_storage_account_name" {
+  type = string
+}
+
+variable "service_plan_name" {
+  type = string
+}
+
+variable "service_plan_tier" {
+  type    = string
+}
+
+variable "service_plan_size" {
+  type    = string
+}
+
+variable "app_service_name" {
   type = string
 }

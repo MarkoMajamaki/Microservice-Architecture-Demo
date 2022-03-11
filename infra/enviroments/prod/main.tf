@@ -28,7 +28,7 @@ module "aks" {
   location = var.location
   rg_name = module.rg.name
   node_count = var.node_count
-  vm = var.vm
+  vm = var.aks_vm
 }
 
 module "kv" {

@@ -22,7 +22,7 @@ variable "app_service_name" {
   type = string
 }
 
-variable "image_name" {
+variable "docker_compose" {
   type = string
 }
 
