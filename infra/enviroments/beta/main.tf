@@ -20,30 +20,45 @@ module "acr" {
   ]
 }
 
-# module "aks" {
-#   source = "./../../modules/aks"
-#   acr_id = module.acr.acr_id
-#   cluster_name = var.cluster_name
-#   kubernetes_version = var.kubernetes_version
-#   location = var.location
+#
+# Select AKS, App Service or ACI
+#
+
+module "aks" {
+  source = "./../../modules/aks"
+  acr_id = module.acr.acr_id
+  cluster_name = var.cluster_name
+  kubernetes_version = var.kubernetes_version
+  location = var.location
+  rg_name = module.rg.name
+  node_count = var.node_count
+  vm = var.aks_vm
+}
+
+# module "app_service" {
+#   source = "./../../modules/appservice"
+#   location = module.rg.location
 #   rg_name = module.rg.name
-#   node_count = var.node_count
-#   vm = var.aks_vm
+#   service_plan_name = var.service_plan_name
+#   service_plan_tier = var.service_plan_tier
+#   service_plan_size = var.service_plan_size
+#   app_service_name = var.app_service_name
+#   docker_compose = filebase64("../../../deploy/docker-compose/docker-compose.beta.yml")
+#   app_settings = {
+#     "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
+#   }
 # }
 
-module "app_service" {
-  source = "./../../modules/appservice"
-  location = module.rg.location
-  rg_name = module.rg.name
-  service_plan_name = var.service_plan_name
-  service_plan_tier = var.service_plan_tier
-  service_plan_size = var.service_plan_size
-  app_service_name = var.app_service_name
-  docker_compose = filebase64("../../../deploy/docker-compose/docker-compose.beta.yml")
-  app_settings = {
-    "WEBSITES_ENABLE_APP_SERVICE_STORAGE" = "false"
-  }
-}
+# module "aci" {
+#   source = "./../../modules/aci"
+#   location = module.rg.location
+#   rg_name = module.rg.name
+#   acr_server = module.acr.acr_login_server
+#   acr_username = module.acr.acr_admin_username
+#   acr_password = module.acr.acr_admin_password
+#   name = "aci"
+#   env = "beta"
+# }
 
 module "kv" {
   source = "./../../modules/kv"

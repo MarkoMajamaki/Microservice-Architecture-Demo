@@ -3,13 +3,14 @@ version: "3.9"
 services:
 
   gateway:
-    image: envoyproxy/envoy:v1.20.2
+    image: microservicedemoacrbeta.azurecr.io/gateway:latest
     container_name: gateway
+    build:
+      context: ../../
+      dockerfile: src/gateway/Dockerfile
     ports:
       - "8001:8001"
       - "8000:80"
-    volumes:
-      - ../../src/gateway/envoy.yml:/etc/envoy/envoy.yaml
 
   frontend:
     image: microservicedemoacrprod.azurecr.io/frontend:latest
@@ -31,9 +32,9 @@ services:
       - sqlserver
       - rabbitmq
     env_file: 
-      - ./identity-api.env
-      - ./rabbitmq.env
-      - ./jwt.env
+      - ../.env/identity-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
     ports:
       - "80"
 
@@ -48,9 +49,9 @@ services:
       - sqlserver
       - rabbitmq
     env_file: 
-      - ./order-api.env
-      - ./rabbitmq.env
-      - ./jwt.env
+      - ../.env/order-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
     ports:
       - "80"
 

@@ -10,6 +10,7 @@
 * CQRS
 * Clean Architecture
 * Microservices
+* Google and Facebook authentication
 * JWT
 * Polly
 * MassTransit
@@ -22,6 +23,7 @@
 * Azure Key Vault
 * Azure Container Registery
 * Azure Kubernetes Services
+* Azure Container Instances
 * SQL Server
 * Elastic Search
 * Redis

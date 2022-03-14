@@ -33,9 +33,9 @@ services:
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
     env_file: 
-      - ./identity-api.env
-      - ./rabbitmq.env
-      - ./jwt.env
+      - ../.env/identity-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
@@ -54,9 +54,9 @@ services:
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
     env_file: 
-      - ./order-api.env
-      - ./rabbitmq.env
-      - ./jwt.env
+      - ../.env/order-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
     ports:

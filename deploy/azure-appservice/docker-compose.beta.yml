@@ -31,9 +31,9 @@ services:
       - sqlserver
       - rabbitmq
     env_file: 
-      - ./identity-api.env
-      - ./rabbitmq.env
-      - ./jwt.env
+      - ../.env/identity-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
     ports:
       - "80"
 
@@ -48,9 +48,9 @@ services:
       - sqlserver
       - rabbitmq
     env_file: 
-      - ./order-api.env
-      - ./rabbitmq.env
-      - ./jwt.env
+      - ../.env/order-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
     ports:
       - "80"
 
