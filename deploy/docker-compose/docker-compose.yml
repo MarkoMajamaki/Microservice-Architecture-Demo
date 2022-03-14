@@ -7,7 +7,7 @@ services:
     container_name: gateway
     ports:
       - "8001:8001"
-      - "8000:80"
+      - "8000:8000"
     volumes:
       - ../../src/gateway/envoy.yml:/etc/envoy/envoy.yaml
 

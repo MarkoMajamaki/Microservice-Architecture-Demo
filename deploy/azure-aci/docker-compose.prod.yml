@@ -3,14 +3,22 @@ version: "3.9"
 services:
 
   gateway:
-    image: microservicedemoacrbeta.azurecr.io/gateway:latest
+    image: microservicedemoacrprod.azurecr.io/gateway:latest
     container_name: gateway
     build:
       context: ../../
       dockerfile: src/gateway/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 200M
+        reservations:
+          cpus: '0.25'
+          memory: 100M
     ports:
       - "8001:8001"
-      - "8000:80"
+      - "8000:8000"
 
   frontend:
     image: microservicedemoacrprod.azurecr.io/frontend:latest
@@ -18,42 +26,68 @@ services:
     build:
       context: ../../
       dockerfile: src/app/frontend/Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 200M
+        reservations:
+          cpus: '0.25'
+          memory: 100M
     ports:
       - "80"
 
-  identityapi:
-    image: microservicedemoacrprod.azurecr.io/identity-api:latest
-    container_name: identityapi
-    restart: on-failure
-    build:
-      context: ../../
-      dockerfile: src/modules/identity/backend/Dockerfile
-    depends_on: 
-      - sqlserver
-      - rabbitmq
-    env_file: 
-      - ../.env/identity-api.env
-      - ../.env/rabbitmq.env
-      - ../.env/jwt.env
-    ports:
-      - "80"
-
-  orderapi:
-    image: microservicedemoacrprod.azurecr.io/order-api:latest
-    container_name: orderapi
-    restart: on-failure   
-    build:
-      context: ../../
-      dockerfile: src/modules/order/backend/Dockerfile
-    depends_on: 
-      - sqlserver
-      - rabbitmq
-    env_file: 
-      - ../.env/order-api.env
-      - ../.env/rabbitmq.env
-      - ../.env/jwt.env
-    ports:
-      - "80"
+  # TODO: Ports should be unique for each container
+  #
+  # identityapi:
+  #   image: microservicedemoacrprod.azurecr.io/identity-api:latest
+  #   container_name: identityapi
+  #   restart: on-failure
+  #   build:
+  #     context: ../../
+  #     dockerfile: src/modules/identity/backend/Dockerfile
+  #   depends_on: 
+  #     - sqlserver
+  #     - rabbitmq
+  #   env_file: 
+  #     - ../.env/identity-api.env
+  #     - ../.env/rabbitmq.env
+  #     - ../.env/jwt.env
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.50'
+  #         memory: 200M
+  #       reservations:
+  #         cpus: '0.25'
+  #         memory: 100M
+  #   ports:
+  #     - "80"
+  #
+  # orderapi:
+  #   image: microservicedemoacrprod.azurecr.io/order-api:latest
+  #   container_name: orderapi
+  #   restart: on-failure   
+  #   build:
+  #     context: ../../
+  #     dockerfile: src/modules/order/backend/Dockerfile
+  #   depends_on: 
+  #     - sqlserver
+  #     - rabbitmq
+  #   env_file: 
+  #     - ../.env/order-api.env
+  #     - ../.env/rabbitmq.env
+  #     - ../.env/jwt.env
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.50'
+  #         memory: 200M
+  #       reservations:
+  #         cpus: '0.25'
+  #         memory: 100M
+  #   ports:
+  #     - "80"
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:latest

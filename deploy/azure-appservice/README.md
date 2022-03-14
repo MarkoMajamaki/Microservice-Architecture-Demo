@@ -17,6 +17,9 @@ terraform -chdir=infra/enviroments/$env apply -auto-approve tfplan
 # Login to ACR
 az acr login --name microservicedemoacr$env
 
+# Build images
+docker-compose -f deploy/azure-appservice/docker-compose.$env.yml build
+
 # Push containers to ACR. App Service is updated when images are updated.
 docker-compose -f deploy/azure-appservice/docker-compose.$env.yml push
 ```

@@ -1,26 +1,20 @@
 # Deploy to Azure Container Instances
 
-## Deploy with Terraform
+## Create infra with Terraform
 ```bash
 # Set enviroment to prod or beta
 env=beta
 
-echo "Deploy $env enviroment to Azure App Services"
-
+# Create TF state storage
 sh infra/create_tfstate_storage.sh
 
 # Init infrastructure with Terraform, do plan, and apply plan to create base infrastructure
 terraform -chdir=infra/enviroments/$env init
 terraform -chdir=infra/enviroments/$env plan -out=tfplan
 terraform -chdir=infra/enviroments/$env apply -auto-approve tfplan
-
-# Login to ACR
-az acr login --name microservicedemoacr$env
-
-# Push containers to ACR. App Service is updated when images are updated.
-docker-compose -f deploy/azure-appservice/docker-compose.$env.yml push
 ```
-## Destroy Terraform deployment
+
+## Destroy infra with Terraform
 ```bash
 # Set enviroment to prod or beta
 env=beta
@@ -42,11 +36,13 @@ docker rmi microservicedemoacr$env/frontend:latest
 # Remove volumes
 rm -R .volumes
 ```
-## Deploy using Azure CLI
+
+## Create infra with Azure CLI
 ```bash
+env=beta # beta/prod
+
 location=northeurope
 rg_name=microservice-demo-$env-rg
-env=beta # beta/prod
 acr_name=microservicedemoacr$env
 
 # Login to Azure
@@ -56,10 +52,22 @@ az login
 az group create --name $rg_name --location $location
 
 # Create ACR
-az acr create --resource-group $rg_name --name $acr_name --sku Basic
+az acr create --resource-group $rg_name --name $acr_name --sku Basic --admin-enabled true
+```
 
+## Destroy infra with Azure CLI
+```bash
+# Destroy resource group
+az group delete --name $rg_name --yes
+```
+
+## Run containers in ACI
+```bash
 # Login to ACR
-az acr login --name $acr_name
+az acr login --name microservicedemoacr$env
+
+# Build images
+docker-compose -f deploy/azure-aci/docker-compose.$env.yml build
 
 # Push images to ACR
 docker-compose -f deploy/azure-aci/docker-compose.$env.yml push
@@ -73,12 +81,9 @@ docker context create aci acicontext --resource-group $rg_name
 # Make docker command to run in ACI
 docker context use acicontext
 
-# Run containers in ACI
-docker-compose -f deploy/azure-aci/docker-compose.$env.yml up
+# Run containers in ACI (TODO: Ports should be unique for each container)
+docker-compose -f deploy/azure-aci/docker-compose.$env.yml --project-name aci up
 
 # Remove containers from ACI
-docker-compose -f deploy/azure-aci/docker-compose.$env.yml down
-
-# Destroy resource group
-az group delete --name $rg_name --yes
+docker-compose -f deploy/azure-aci/docker-compose.$env.yml --project-name aci down 
 ```

@@ -44,6 +44,7 @@ kubectl apply -f -
 docker build -t microservice_demo/order-api:latest -f src/modules/order/backend/Dockerfile .
 docker build -t microservice_demo/identity-api:latest -f src/modules/identity/backend/Dockerfile .
 docker build -t microservice_demo/frontend:latest -f src/app/frontend/Dockerfile .
+docker build -t microservice_demo/gateway:latest -f src/gateway/Dockerfile .
 
 # Tag based on ACR login path
 docker tag microservice_demo/order-api:latest microservicedemoacr$env.azurecr.io/order-api:latest
