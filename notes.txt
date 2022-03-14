@@ -21,9 +21,23 @@ https://www.youtube.com/watch?v=UsoH5cqE1OA
 eShopOnContainers
 https://github.com/dotnet-architecture/eShopOnContainers/tree/dev/src/Services/Catalog/Catalog.API
 
+Responsive apps resocoder
+https://resocoder.com/2021/10/03/create-responsive-flutter-apps-with-minimal-effort/
+
 Deploying a Docker based web application to Azure App Service
 https://azuredevopslabs.com/labs/vstsextend/docker/
 
+Building a Responsive UI Architecture in Flutter
+https://www.filledstacks.com/post/building-a-responsive-ui-architecture-in-flutter/
+
+The Best Flutter Responsive UI Pattern
+https://www.filledstacks.com/post/the-best-flutter-responsive-ui-pattern/
+
+A Responsive UI Architecture Solution with Provider
+https://www.filledstacks.com/post/a-responsive-ui-architecture-solution-with-provider/
+
+Building a Responsive Website using Flutter
+https://www.filledstacks.com/post/building-a-responsive-website-using-flutter/
 -----
 Envoy
 

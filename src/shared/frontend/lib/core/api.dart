@@ -14,10 +14,10 @@ const Enviroments enviroment = Enviroments.development;
 String get baseUrl {
   // Jos K8S nii tällöin api-auth!
   if (kIsWeb) {
-    return "https://localhost:5001";
+    return "https://localhost:8000";
   } else if (Platform.isAndroid) {
-    return "https://10.0.2.2:5001";
+    return "https://10.0.2.2:8000";
   } else {
-    return "https://localhost:5001";
+    return "https://localhost:8000";
   }
 }

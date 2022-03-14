@@ -10,10 +10,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
   flutter_web_plugins:
     sdk: flutter
-    
+  flutter_localizations:
+    sdk: flutter  
+  get_it: ^7.2.0
+  cupertino_icons: ^1.0.2
+  # flutkit: ^0.0.6
+  flutkit:
+    path: ../../../../FlutKit/flutkit
+  # modulary: ^0.0.4
+  modulary:
+    path: ../../../../Modulary/modulary/
+  shared:
+    path: ../../shared/frontend/
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

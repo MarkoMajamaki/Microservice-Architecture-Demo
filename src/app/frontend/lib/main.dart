@@ -1,28 +1,16 @@
 import 'package:flutter/material.dart';
-import 'configure_nonweb.dart' if (dart.library.html) 'configure_web.dart';
+import 'package:frontend/core/app.dart';
+import 'package:frontend/core/configure_nonweb.dart'
+    if (dart.library.html) 'package:frontend/core/configure_web.dart';
+import 'package:frontend/module.dart';
+import 'package:modulary/modulary.dart';
 
 void main() {
   configureApp();
-  runApp(const MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  Modules.initialize([
+    MainModule(),
+  ]);
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text("Hello World!"),
-        ),
-      ),
-    );
-  }
+  runApp(const App());
 }
