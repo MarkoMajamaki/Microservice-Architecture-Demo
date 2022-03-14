@@ -1,11 +1,22 @@
 # Deploy locally using docker compose
 
-Deploy by running this from root directory
+## Deploy
 ```bash
-sh deploy/docker-compose/deploy.sh
+docker-compose -f deploy/docker-compose/docker-compose.yml up
 ```
 
-Destroy environment 
+## Destroy 
 ```bash
-sh deploy/docker-compose/destroy.sh
+docker-compose -f deploy/docker-compose/docker-compose.yml down
+
+# Remove local docker images
+docker rmi microservice_demo/identity-api:latest
+docker rmi microservice_demo/order-api:latest
+docker rmi microservice_demo/frontend:latest
+docker rmi envoyproxy/envoy:v1.20.2
+docker rmi mcr.microsoft.com/mssql/server:latest
+docker rmi rabbitmq:3-management
+
+# Remove volumes
+rm -R .volumes
 ```

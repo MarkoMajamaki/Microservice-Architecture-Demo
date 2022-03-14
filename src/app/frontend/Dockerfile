@@ -23,7 +23,7 @@ RUN flutter config --enable-web
 # Copy files to container and build
 RUN mkdir /app/
 COPY ["src/app/frontend", "app/frontend"]
-# COPY ["src/shared/frontend", "shared/frontend"]
+COPY ["src/shared/frontend", "shared/frontend"]
 # COPY ["src/modules/identity/frontend", "modules/identity/frontend"]
 # COPY ["src/modules/order/frontend", "modules/order/frontend"]
 WORKDIR /app/frontend

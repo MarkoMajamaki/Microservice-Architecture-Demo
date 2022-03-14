@@ -3,11 +3,8 @@ version: "3.9"
 services:
 
   gateway:
-    image: microservice_demo/gateway
+    image: envoyproxy/envoy:v1.20.2
     container_name: gateway
-    build:
-      context: ../../
-      dockerfile: src/gateway/Dockerfile
     ports:
       - "8001:8001"
       - "8000:80"
@@ -15,16 +12,16 @@ services:
       - ../../src/gateway/envoy.yml:/etc/envoy/envoy.yaml
 
   frontend:
-    image: microservicedemoacrbeta.azurecr.io/frontend:latest
+    image: microservice_demo/frontend:latest
     container_name: frontend
     build:
       context: ../../
       dockerfile: src/app/frontend/Dockerfile
     ports:
-      - "80"
+      - "5001:80"
 
   identityapi:
-    image: microservicedemoacrbeta.azurecr.io/identity-api:latest
+    image: microservice_demo/identity-api:latest
     container_name: identityapi
     restart: on-failure
     build:
@@ -33,15 +30,19 @@ services:
     depends_on: 
       - sqlserver
       - rabbitmq
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
     env_file: 
       - ./identity-api.env
       - ./rabbitmq.env
       - ./jwt.env
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
     ports:
-      - "80"
+      - "5002:80"
 
   orderapi:
-    image: microservicedemoacrbeta.azurecr.io/order-api:latest
+    image: microservice_demo/order-api:latest
     container_name: orderapi
     restart: on-failure   
     build:
@@ -50,12 +51,16 @@ services:
     depends_on: 
       - sqlserver
       - rabbitmq
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
     env_file: 
       - ./order-api.env
       - ./rabbitmq.env
       - ./jwt.env
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
     ports:
-      - "80"
+      - "5003:80"
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:latest
@@ -64,11 +69,15 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "loc4LdevP4ss#"
     ports:
-      - "1433"
+      - "1433:1433"
+    volumes:
+      - ../../.volumes/sqlserver-data:/var/opt/mssql/data
+      - ../../.volumes/sqlserver-logs:/var/opt/mssql/log
+      - ../../.volumes/sqlserver-secrets:/var/opt/mssql/secrets
   
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - "5672"
-      - "15672"
+      - 5672:5672
+      - 15672:15672

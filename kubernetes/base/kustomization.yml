@@ -3,5 +3,4 @@ resources:
   - order-api.yml
   - identity-api.yml
   - frontend.yml
-  - ingress-tls-secret.yml
-  - ingress.yml
+  - gateway.yml

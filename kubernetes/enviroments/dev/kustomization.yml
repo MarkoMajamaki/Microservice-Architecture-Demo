@@ -4,6 +4,7 @@ resources:
   - order-api-secrets.yml
   - identity-api-secrets.yml
   - rabbitmq-secrets.yml
+  - jwt-secrets.yml
 
 patches:
 - path: identity-api-secrets-patch.json

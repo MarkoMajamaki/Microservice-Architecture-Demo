@@ -60,9 +60,9 @@ packages:
   flutkit:
     dependency: "direct main"
     description:
-      path: "../../../../FlutKit/flutkit"
-      relative: true
-    source: path
+      name: flutkit
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.6"
   flutter:
     dependency: "direct main"
@@ -143,9 +143,9 @@ packages:
   modulary:
     dependency: "direct main"
     description:
-      path: "../../../../Modulary/modulary"
-      relative: true
-    source: path
+      name: modulary
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.0.4"
   path:
     dependency: transitive

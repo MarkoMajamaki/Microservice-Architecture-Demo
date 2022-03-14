@@ -1,1 +1,0 @@
-kind delete cluster --name microservice-demo

@@ -1,22 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: identity-api
+  name: gateway
 spec:
   selector:
     matchLabels:
-      app: identity-api
+      app: gateway
   template:
     metadata:
       labels:
-        app: identity-api
+        app: gateway
     spec:
       containers:
-      - name: identity-api
-        image: microservice_demo/identity-api:latest
-        imagePullPolicy: IfNotPresent
+      - name: gateway
+        image: envoyproxy/envoy:v1.20.2
         ports:
-        - containerPort: 80
+        - name: http
+          containerPort: 8000
+        - name: envoy-admin
+          containerPort: 9901
         resources:
           requests:
             memory: "128Mi"
@@ -28,12 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: identity-api
+  name: gateway
 spec:
-  type: ClusterIP
   selector:
-    app: identity-api
+    app: gateway
   ports:
-  - protocol: TCP
-    port: 5001
-    targetPort: 80
+  - port: 80
+    targetPort: 8000
+  type: NodePort

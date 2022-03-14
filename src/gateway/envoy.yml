@@ -28,12 +28,12 @@ static_resources:
               domains: ["*"]
               routes:
               - match:
-                  prefix: "/identity/"
+                  prefix: "/api/identity/"
                 route:
                   prefix_rewrite: "/"
                   cluster: identity_service
               - match:
-                  prefix: "/order/"
+                  prefix: "/api/order/"
                 route:
                   prefix_rewrite: "/"
                   cluster: order_service

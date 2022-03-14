@@ -16,12 +16,12 @@ dependencies:
     sdk: flutter  
   get_it: ^7.2.0
   cupertino_icons: ^1.0.2
-  # flutkit: ^0.0.6
-  flutkit:
-    path: ../../../../FlutKit/flutkit
-  # modulary: ^0.0.4
-  modulary:
-    path: ../../../../Modulary/modulary/
+  flutkit: ^0.0.6
+  # flutkit:
+  #   path: ../../../../FlutKit/flutkit
+  modulary: ^0.0.4
+  # modulary:
+  #   path: ../../../../Modulary/modulary/
   shared:
     path: ../../shared/frontend/
 
