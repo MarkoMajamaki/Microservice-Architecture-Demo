@@ -1,11 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:identity/common/getit.dart';
 import 'package:identity/views/login_view.dart';
-import 'package:shared/core/localization.dart';
+import 'package:shared/common/localization.dart';
 import 'package:modulary/modulary.dart';
-
-import 'core/getit.dart';
 
 class AuthModule extends Module {
   @override

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
-import 'package:identity/core/api.dart';
+import 'package:identity/common/api.dart';
 import 'package:identity/models/user.dart';
 import 'package:shared/models/token.dart';
 

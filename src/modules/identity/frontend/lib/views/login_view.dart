@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:identity/core/getit.dart';
+import 'package:identity/common/getit.dart';
 import 'package:identity/viewmodels/login_viewmodel.dart';
 import 'package:identity/widgets/facebook_login_button.dart';
 import 'package:identity/widgets/google_login_button.dart';
-import 'package:shared/core/localization.dart';
+import 'package:shared/common/localization.dart';
 
 enum LoginViewModes { login, signup }
 

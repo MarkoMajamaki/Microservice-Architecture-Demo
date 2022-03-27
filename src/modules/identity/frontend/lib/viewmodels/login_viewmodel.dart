@@ -1,4 +1,4 @@
-import 'package:identity/core/getit.dart';
+import 'package:identity/common/getit.dart';
 import 'package:identity/models/user.dart';
 import 'package:identity/services/email_login_service.dart';
 import 'package:identity/services/facebook_login_service.dart';

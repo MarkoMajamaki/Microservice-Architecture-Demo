@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:http/http.dart';
-import 'package:identity/core/api.dart';
+import 'package:identity/common/api.dart';
 import 'package:identity/models/user.dart';
 import 'package:shared/models/token.dart';
 

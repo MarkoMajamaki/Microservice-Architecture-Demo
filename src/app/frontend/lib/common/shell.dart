@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:frontend/core/getit.dart';
-import 'package:frontend/views/home/home_view.dart';
+import 'package:frontend/common/getit.dart';
 import 'package:modulary/modulary.dart';
-import 'package:shared/core/dialog_provider.dart';
-import 'package:shared/core/localization.dart';
-import 'package:shared/core/theme.dart';
+import 'package:shared/common/dialog_provider.dart';
+import 'package:shared/common/localization.dart';
+import 'package:shared/common/theme.dart';
 import 'package:shared/services/navigation_service.dart';
 
-class App extends StatefulWidget {
-  const App({Key? key}) : super(key: key);
+class Shell extends StatefulWidget {
+  const Shell({Key? key}) : super(key: key);
 
   static void setLocale(BuildContext context, Locale newLocale) async {
-    _AppState? state = context.findAncestorStateOfType<_AppState>();
+    _ShellState? state = context.findAncestorStateOfType<_ShellState>();
 
     if (state != null) {
       state.changeLanguage(newLocale);
@@ -20,10 +19,10 @@ class App extends StatefulWidget {
   }
 
   @override
-  State<App> createState() => _AppState();
+  State<Shell> createState() => _ShellState();
 }
 
-class _AppState extends State<App> {
+class _ShellState extends State<Shell> {
   Locale? _locale;
 
   changeLanguage(Locale locale) {
@@ -44,7 +43,7 @@ class _AppState extends State<App> {
       debugShowCheckedModeBanner: false,
       theme: getTheme(),
       navigatorKey: getIt<NavigationService>().getNavigatorKey(),
-      initialRoute: Home.route,
+      initialRoute: "/",
       routes: Modules.routes(),
       onGenerateRoute: (settings) => Modules.onGenerateRoute(settings),
       builder: (context, child) => Navigator(

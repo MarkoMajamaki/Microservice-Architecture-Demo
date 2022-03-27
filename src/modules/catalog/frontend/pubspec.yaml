@@ -1,4 +1,4 @@
-name: frontend
+name: catalog
 description: Microservice Architecture Demo catalog module UI
 version: 0.0.1
 homepage: https://github.com/MarkoMajamaki/Microservice-Architecture-Demo
@@ -20,4 +20,5 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  
 flutter:

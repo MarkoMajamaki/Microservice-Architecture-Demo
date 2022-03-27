@@ -24,6 +24,8 @@ dependencies:
   #   path: ../../../../Modulary/modulary/
   shared:
     path: ../../shared/frontend/
+  catalog:
+    path: ../../modules/catalog/frontend
 
 dev_dependencies:
   flutter_test:

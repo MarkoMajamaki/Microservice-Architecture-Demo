@@ -1,4 +1,4 @@
-import 'package:shared/core/api.dart';
+import 'package:shared/common/api.dart';
 
 final String loginEmailUrl = "$baseUrl/auth/login";
 final String registerEmailUrl = "$baseUrl/auth/register";

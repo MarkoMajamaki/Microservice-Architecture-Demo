@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/core/getit.dart';
-import 'package:frontend/views/home/home_view.dart';
+import 'package:frontend/common/getit.dart';
 import 'package:modulary/modulary.dart';
 
 class MainModule extends Module {
@@ -15,9 +14,7 @@ class MainModule extends Module {
 
   @override
   Map<String, WidgetBuilder> get routes {
-    return {
-      Home.route: (context) => const Home(),
-    };
+    return {};
   }
 
   ///
