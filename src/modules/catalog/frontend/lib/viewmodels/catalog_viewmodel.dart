@@ -1,11 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:shared/mvvm/view_model_base.dart';
+import 'package:shared/services/navigation_service.dart';
 
-class CatalogViewModel extends ChangeNotifier {
-  String title = "start";
+class CatalogViewModel extends ViewModelBase {
+  final NavigationService navigationService;
+
+  String title = "CatalogViewModel";
   int counter = 0;
 
-  void initialize() {
-    title = "initialized";
+  CatalogViewModel(this.navigationService);
+
+  @override
+  void init() {
+    title = "initialized $title";
     notifyListeners();
   }
 
@@ -13,5 +20,13 @@ class CatalogViewModel extends ChangeNotifier {
     counter++;
     title = "updated: $counter";
     notifyListeners();
+  }
+
+  void navigateCommand() {
+    navigationService.navigate("ProductView");
+  }
+
+  void goBackCommand() {
+    navigationService.goBack();
   }
 }

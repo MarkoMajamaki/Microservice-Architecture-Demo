@@ -45,5 +45,6 @@ class AuthModule extends Module {
             FadeTransition(opacity: a, child: c),
       );
     }
+    return null;
   }
 }

@@ -5,6 +5,7 @@ import 'package:modulary/modulary.dart';
 import 'package:shared/common/dialog_provider.dart';
 import 'package:shared/common/localization.dart';
 import 'package:shared/common/theme.dart';
+import 'package:shared/mvvm/view_base.dart';
 import 'package:shared/services/navigation_service.dart';
 
 class Shell extends StatefulWidget {

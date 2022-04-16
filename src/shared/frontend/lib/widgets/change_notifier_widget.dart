@@ -1,43 +1,43 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:flutter/material.dart';
+// import 'package:provider/provider.dart';
 
-class ChangeNotifierWidget<ViewModelType extends ChangeNotifier>
-    extends StatefulWidget {
-  final Widget Function(BuildContext) builder;
-  final Function(ViewModelType)? onModelReady;
-  final ViewModelType viewModel;
+// class ChangeNotifierWidget<ViewModelType extends ChangeNotifier>
+//     extends StatefulWidget {
+//   final Widget Function(BuildContext) builder;
+//   final Function(ViewModelType)? onModelReady;
+//   final ViewModelType viewModel;
 
-  const ChangeNotifierWidget({
-    Key? key,
-    required this.builder,
-    this.onModelReady,
-    required this.viewModel,
-  }) : super(key: key);
+//   const ChangeNotifierWidget({
+//     Key? key,
+//     required this.builder,
+//     this.onModelReady,
+//     required this.viewModel,
+//   }) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => _BaseViewState<ViewModelType>();
-}
+//   @override
+//   State<StatefulWidget> createState() => _BaseViewState<ViewModelType>();
+// }
 
-class _BaseViewState<ViewModelType extends ChangeNotifier>
-    extends State<ChangeNotifierWidget<ViewModelType>> {
-  late ViewModelType _viewModel;
+// class _BaseViewState<ViewModelType extends ChangeNotifier>
+//     extends State<ChangeNotifierWidget<ViewModelType>> {
+//   late ViewModelType _viewModel;
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   void initState() {
+//     super.initState();
 
-    _viewModel = widget.viewModel;
+//     _viewModel = widget.viewModel;
+// 
+//     if (widget.onModelReady != null) {
+//       widget.onModelReady!(_viewModel);
+//     }
+//   }
 
-    if (widget.onModelReady != null) {
-      widget.onModelReady!(_viewModel);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => _viewModel,
-      child: widget.builder(context),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ChangeNotifierProvider(
+//       create: (context) => _viewModel,
+//       child: widget.builder(context),
+//     );
+//   }
+// }

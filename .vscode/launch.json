@@ -30,6 +30,13 @@
             "args": ["--web-port", "5001"],
             "deviceId": "chrome",
         },
+        {
+            "name": "Frontend (Mac)",
+            "type": "dart",
+            "request": "launch",
+            "program": "src/app/frontend/lib/main.dart",
+            "deviceId": "macos",
+        },
         //
         //  Server
         //
