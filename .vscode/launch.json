@@ -2,12 +2,16 @@
     "version": "0.2.0",
     "compounds": [
         {
-            "name": "All",
-            "configurations": ["IdentityApi", "OrderApi", "Frontend (Web)"]
+            "name": "Run all (web)",
+            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "InventoryApi", "OrderApi", "Frontend (Web)"]
         },
         {
-            "name": "Server",
-            "configurations": ["IdentityApi", "OrderApi"]
+            "name": "Run all (macos)",
+            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "InventoryApi", "OrderApi", "Frontend (Mac)"]
+        },
+        {
+            "name": "Run server only",
+            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "InventoryApi", "OrderApi"]
         },
         {
             "name": "Run migrations",
@@ -41,21 +45,46 @@
         //  Server
         //
         {
-            "name": "OrderApi",
+            "name": "BasketApi",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build_orderapi",
-            "program": "${workspaceFolder}/src/modules/order/backend/Order.Api/bin/Debug/net6.0/Order.Api.dll",
+            "preLaunchTask": "build_basketapi",
+            "program": "${workspaceFolder}/src/modules/basket/backend/Basket.Api/bin/Debug/net6.0/Basket.Api.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/modules/order/backend/Order.Api",
-            "stopAtEntry": false,           
+            "cwd": "${workspaceFolder}/src/modules/basket/backend/Basket.Api",
+            "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=order-db;User=sa;Password=loc4LdevP4ss#"
+                "CONNECTIONSTRING": "Redis connection string"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        {
+            "name": "CatalogApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_catalogapi",
+            "program": "${workspaceFolder}/src/modules/catalog/backend/Catalog.Api/bin/Debug/net6.0/Catalog.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/modules/catalog/backend/Catalog.Api",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "REDIS_CONNECTIONSTRING": "Redis connection string",
+                "ES_CONNECTIONSTRING": "ElasticSearch connection string"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
@@ -80,6 +109,54 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=identity-db;User=sa;Password=loc4LdevP4ss#"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        {
+            "name": "InventoryApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_inventoryapi",
+            "program": "${workspaceFolder}/src/modules/inventory/backend/Inventory.Api/bin/Debug/net6.0/Inventory.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/modules/inventory/backend/Inventory.Api",
+            "stopAtEntry": false,           
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=inventory-db;User=sa;Password=loc4LdevP4ss#"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            },
+            "logging": {
+                "moduleLoad": false
+            }
+        },
+        {
+            "name": "OrderApi",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build_orderapi",
+            "program": "${workspaceFolder}/src/modules/order/backend/Order.Api/bin/Debug/net6.0/Order.Api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/modules/order/backend/Order.Api",
+            "stopAtEntry": false,           
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=order-db;User=sa;Password=loc4LdevP4ss#"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

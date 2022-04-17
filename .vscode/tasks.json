@@ -1,13 +1,28 @@
 {
     "version": "2.0.0",
     "tasks": [
+        //
+        // Server
+        //
         {
-            "label": "build_orderapi",
+            "label": "build_basketapi",
             "command": "dotnet",
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/src/modules/order/backend/Order.Api/Order.Api.csproj",
+                "${workspaceFolder}/src/modules/basket/backend/Basket.Api/Basket.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build_catalogapi",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/modules/catalog/backend/Catalog.Api/Catalog.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -25,6 +40,33 @@
             ],
             "problemMatcher": "$msCompile"
         },
+        {
+            "label": "build_inventoryapi",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/modules/order/backend/Inventory.Api/Inventory.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build_orderapi",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/modules/order/backend/Order.Api/Order.Api.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        //
+        // Migrations
+        //
         {
             "label": "build_order_migrations",
             "command": "dotnet",

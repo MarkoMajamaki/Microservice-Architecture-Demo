@@ -17,7 +17,6 @@ class CatalogModule extends Module {
   Map<String, Widget Function(BuildContext p1)> get routes {
     return {
       "/": (context) => const CatalogView(),
-      CatalogView.route: (context) => const CatalogView(),
       ProductView.route: (context) => const ProductView(),
     };
   }

@@ -17,7 +17,7 @@ public class Program
                 var env = hostingcontext.HostingEnvironment;
 
                 // find the shared folder in the parent folder
-                var sharedFolder = Path.Combine(env.ContentRootPath, "../../../../core/backend/SharedApi");
+                var sharedFolder = Path.Combine(env.ContentRootPath, "../../../../shared/backend/SharedApi");
 
                 config
                 .AddJsonFile(Path.Combine(sharedFolder, "appsettings.json"), optional: true)
