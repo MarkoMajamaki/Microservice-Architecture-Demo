@@ -3,13 +3,14 @@ version: "3.9"
 services:
 
   gateway:
-    image: envoyproxy/envoy:v1.20.2
+    image: microservice_demo/gateway:latest
     container_name: gateway
+    build:
+      context: ../../
+      dockerfile: src/gateway/Dockerfile
     ports:
       - "8001:8001"
       - "8000:8000"
-    volumes:
-      - ../../src/gateway/envoy.yml:/etc/envoy/envoy.yaml
 
   frontend:
     image: microservice_demo/frontend:latest
@@ -19,6 +20,49 @@ services:
       dockerfile: src/app/frontend/Dockerfile
     ports:
       - "5001:80"
+
+  basketapi:
+    image: microservice_demo/basket-api:latest
+    container_name: basketapi
+    restart: on-failure   
+    build:
+      context: ../../
+      dockerfile: src/modules/basket/backend/Dockerfile
+    depends_on: 
+      - sqlserver
+      - rabbitmq
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    env_file: 
+      - ../.env/basket-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+    ports:
+      - "5003:80"
+
+  catalogapi:
+    image: microservice_demo/catalog-api:latest
+    container_name: catalogapi
+    restart: on-failure   
+    build:
+      context: ../../
+      dockerfile: src/modules/catalog/backend/Dockerfile
+    depends_on: 
+      #- redis
+      - elasticsearch
+      - rabbitmq
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    env_file: 
+      - ../.env/catalog-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+    ports:
+      - "5004:80"
 
   identityapi:
     image: microservice_demo/identity-api:latest
@@ -40,6 +84,27 @@ services:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
       - "5002:80"
+      
+  inventoryapi:
+    image: microservice_demo/inventory-api:latest
+    container_name: inventoryapi
+    restart: on-failure   
+    build:
+      context: ../../
+      dockerfile: src/modules/inventory/backend/Dockerfile
+    depends_on: 
+      - sqlserver
+      - rabbitmq
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    env_file: 
+      - ../.env/inventory-api.env
+      - ../.env/rabbitmq.env
+      - ../.env/jwt.env
+    volumes:
+      - ~/.vsdbg:/remote_debugger:rw
+    ports:
+      - "5005:80"
 
   orderapi:
     image: microservice_demo/order-api:latest
@@ -60,7 +125,7 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
-      - "5003:80"
+      - "5006:80"
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:latest
@@ -75,6 +140,23 @@ services:
       - ../../.volumes/sqlserver-logs:/var/opt/mssql/log
       - ../../.volumes/sqlserver-secrets:/var/opt/mssql/secrets
   
+  elasticsearch:
+    container_name: ElasticSearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.1.0
+    environment:
+    - ELASTIC_PASSWORD=esLoc4LdevP4ss#
+    ports:
+    - "9200:9200"
+
+  # redis:
+  #   image: redis:6.2-alpine
+  #   restart: always
+  #   ports:
+  #     - '6379:6379'
+  #   command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+  #   volumes: 
+  #     - cache:/data
+
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq

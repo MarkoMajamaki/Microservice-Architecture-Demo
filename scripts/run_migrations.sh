@@ -1,7 +1,19 @@
-# Build Order module
-dotnet build src/modules/order/backend/Tools/Order.Migrations/
+# Build inventory module
+dotnet build src/modules/inventory/backend/Tools/Inventory.Migrations/
 
-# Run Order module migrations
+# Run inventory module migrations
+dotnet run \
+    --project src/modules/inventory/backend/Tools/Inventory.Migrations/Inventory.Migrations.csproj -- \
+    -ip localhost \
+    -port 1433 \
+    -u sa \
+    -n inventory-db \
+    -p loc4LdevP4ss#
+
+# Build order module
+dotnet build src/modules/inventory/backend/Tools/Order.Migrations/
+
+# Run order module migrations
 dotnet run \
     --project src/modules/order/backend/Tools/Order.Migrations/Order.Migrations.csproj -- \
     -ip localhost \
@@ -10,10 +22,10 @@ dotnet run \
     -n order-db \
     -p loc4LdevP4ss#
 
-# Build Identity module
+# Build identity module
 dotnet build src/modules/Identity/backend/Tools/Identity.Migrations/
 
-# Run Identity module migrations
+# Run identity module migrations
 dotnet run \
     --project src/modules/Identity/backend/Tools/Identity.Migrations/Identity.Migrations.csproj -- \
     -ip localhost \

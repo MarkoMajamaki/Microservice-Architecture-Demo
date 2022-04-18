@@ -1,6 +1,9 @@
 resources:
-  - rabbitmq.yml
   - order-api.yml
+  - basket-api.yml
+  - inventory-api.yml
+  - catalog-api.yml
   - identity-api.yml
   - frontend.yml
   - gateway.yml
+  - rabbitmq.yml

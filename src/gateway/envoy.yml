@@ -28,10 +28,25 @@ static_resources:
               domains: ["*"]
               routes:
               - match:
+                  prefix: "/api/basket/"
+                route:
+                  prefix_rewrite: "/"
+                  cluster: basket_service
+              - match:
+                  prefix: "/api/catalog/"
+                route:
+                  prefix_rewrite: "/"
+                  cluster: catalog_service
+              - match:
                   prefix: "/api/identity/"
                 route:
                   prefix_rewrite: "/"
                   cluster: identity_service
+              - match:
+                  prefix: "/api/inventory/"
+                route:
+                  prefix_rewrite: "/"
+                  cluster: inventory_service
               - match:
                   prefix: "/api/order/"
                 route:
@@ -43,19 +58,35 @@ static_resources:
                   cluster: frontend_service
 
   clusters:
-  - name: frontend_service
+
+  - name: basket_service
     type: LOGICAL_DNS
     dns_lookup_family: V4_ONLY
     lb_policy: ROUND_ROBIN
     load_assignment:
-      cluster_name: frontend_service
+      cluster_name: basket_service
       endpoints:
       - lb_endpoints:
         - endpoint:
             address:
               socket_address:
-                address: frontend
+                address: basketapi
                 port_value: 80
+
+  - name: catalog_service
+    type: LOGICAL_DNS
+    dns_lookup_family: V4_ONLY
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: catalog_service
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: catalogapi
+                port_value: 80
+
   - name: identity_service
     type: LOGICAL_DNS
     dns_lookup_family: V4_ONLY
@@ -69,6 +100,21 @@ static_resources:
               socket_address:
                 address: identityapi
                 port_value: 80
+  
+  - name: inventory_service
+    type: LOGICAL_DNS
+    dns_lookup_family: V4_ONLY
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: inventory_service
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: inventoryapi
+                port_value: 80
+
   - name: order_service
     type: LOGICAL_DNS
     dns_lookup_family: V4_ONLY
@@ -81,4 +127,18 @@ static_resources:
             address:
               socket_address:
                 address: orderapi
+                port_value: 80
+
+  - name: frontend_service
+    type: LOGICAL_DNS
+    dns_lookup_family: V4_ONLY
+    lb_policy: ROUND_ROBIN
+    load_assignment:
+      cluster_name: frontend_service
+      endpoints:
+      - lb_endpoints:
+        - endpoint:
+            address:
+              socket_address:
+                address: frontend
                 port_value: 80

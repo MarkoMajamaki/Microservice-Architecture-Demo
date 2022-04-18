@@ -17,9 +17,11 @@ variables:
   value: variables['Build.SourceBranchName']
 
 stages:
+
 - stage: Test
   jobs:
   - template: ../templates/test.yml
+
 - stage: Build
   jobs:
   - template: ../templates/build.yml
