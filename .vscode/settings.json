@@ -1,4 +1,4 @@
 {
-    "dart.projectSearchDepth": 8,
-    "dotnet-test-explorer.testProjectPath": "**/*Test.csproj"
+    "dotnet-test-explorer.testProjectPath": "**/*Test.csproj",
+    "dart.projectSearchDepth": 8
 }

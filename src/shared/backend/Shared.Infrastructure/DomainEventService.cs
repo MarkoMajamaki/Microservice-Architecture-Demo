@@ -1,5 +1,4 @@
-/*using MediatR;
-using Microsoft.Extensions.Logging;
+using MediatR;
 using Shared.Application;
 using Shared.Domain;
 
@@ -7,25 +6,25 @@ namespace Shared.Infrastructure;
 
 public class DomainEventService : IDomainEventService
 {
-    private readonly ILogger<DomainEventService> _logger;
     private readonly IPublisher _mediator;
 
-    public DomainEventService(ILogger<DomainEventService> logger, IPublisher mediator)
+    public DomainEventService(IPublisher mediator)
     {
-        _logger = logger;
         _mediator = mediator;
     }
 
     public async Task Publish(DomainEvent domainEvent)
     {
-        _logger.LogInformation("Publishing domain event. Event - {event}", domainEvent.GetType().Name);
+        // Send a notification to multiple event handlers using mediator
         await _mediator.Publish(GetNotificationCorrespondingToDomainEvent(domainEvent));
     }
 
     private INotification GetNotificationCorrespondingToDomainEvent(DomainEvent domainEvent)
     {
-        return (INotification)Activator.CreateInstance(
-            typeof(DomainEventNotification<>).MakeGenericType(domainEvent.GetType()), domainEvent)!;
+        // Create type of DomainEventNotification where generic type is same as domainEvent type
+        var type = typeof(DomainEventNotification<>).MakeGenericType(domainEvent.GetType());
+        
+        // Create instace of that type 
+        return (INotification)Activator.CreateInstance(type, domainEvent)!;
     }
 }
-*/

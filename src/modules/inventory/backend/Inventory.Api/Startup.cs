@@ -26,7 +26,7 @@ public class Startup
         services.AddControllers();
         services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "OrderApi", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "InventoryApi", Version = "v1" });
         });
 
     }
@@ -40,7 +40,7 @@ public class Startup
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderApi v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "InventoryApi v1"));
         }
 
         app.ConfigExeptionMiddleware();

@@ -1,17 +1,48 @@
+using Inventory.Domain;
+using Inventory.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
+namespace Inventory.Infrastructure;
+
 public class ProductRepository : IProductRepository
 {
-    public void CreateProduct()
+    private readonly InventoryContext _inventoryContext;
+    
+    public ProductRepository(InventoryContext inventoryContext)
     {
-        throw new NotImplementedException();
+        _inventoryContext = inventoryContext;
+    }
+    
+    public async Task<Product> FindAsync(int id, CancellationToken cancellationToken)
+    {
+        return await _inventoryContext.Products.FindAsync(id);
     }
 
-    public void DeleteProduct()
+    public async Task<List<Product>> GetAllAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _inventoryContext.Products.ToListAsync();
     }
 
-    public void UpdateProduct()
+    public async Task SaveAsync(Product product, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        _inventoryContext.Products.Add(product);
+
+        // product.AddDomainEvent(ProductAddedEvent())
+
+        await _inventoryContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(Product product, CancellationToken cancellationToken)
+    {
+        var productToUpdate = _inventoryContext.Products.Find(product.Id);
+    
+        productToUpdate.Quantity = product.Quantity;
+        productToUpdate.Name = product.Name;
+        productToUpdate.Description = product.Description;
+        productToUpdate.Price = product.Price;
+        
+        // product.AddDomainEvent(ProductAddedEvent())
+
+        await _inventoryContext.SaveChangesAsync();
     }
 }

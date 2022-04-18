@@ -13,7 +13,7 @@ public class Migrations
             connectionString, 
             x => x.MigrationsAssembly("Order.Infrastructure"));
 
-        using (var context = new OrderContext(optionsBuilder.Options, null, null))
+        using (var context = new OrderContext(optionsBuilder.Options, null, null, null))
         {
             context.Database.Migrate();
         }

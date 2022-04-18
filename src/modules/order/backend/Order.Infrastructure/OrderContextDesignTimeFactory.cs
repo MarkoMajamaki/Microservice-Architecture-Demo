@@ -19,6 +19,6 @@ public class OrderContextDesignTimeFactory : IDesignTimeDbContextFactory<OrderCo
             .UseSqlServer(connectionString, x => x.MigrationsAssembly("Order.Infrastructure"))
             .Options;
 
-        return new OrderContext(options, null, null);
+        return new OrderContext(options, null, null, null);
     }
 }

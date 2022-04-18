@@ -21,6 +21,8 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, Cre
             order.AddItem(new Domain.OrderItem(orderItem.Amount, orderItem.Id));
         }
 
+        order.AddDomainEvent(new OrderCreatedEvent(order));
+
         await _orderRepository.SaveAsync(order, cancellationToken);
 
         return new CreateOrderResponse(order.Id, Status.Received);

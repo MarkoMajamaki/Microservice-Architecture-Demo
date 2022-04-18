@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Inventory.Domain\Inventory.Domain.csproj" />
     <ProjectReference Include="..\..\..\..\shared\backend\Shared.Application\Shared.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\shared\backend\Shared.Domain\Shared.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

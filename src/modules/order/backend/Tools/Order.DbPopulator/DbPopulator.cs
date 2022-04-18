@@ -2,6 +2,7 @@ using Order.Infrastructure;
 using Order.Domain;
 using Microsoft.EntityFrameworkCore;
 using Shared.Application;
+using Shared.Infrastructure;
 
 namespace Order.DbPopulator;
 public class DbPopulator
@@ -14,7 +15,8 @@ public class DbPopulator
             connectionString, 
             x => x.MigrationsAssembly("Order.Infrastructure"));
 
-        using (var db = new OrderContext(optionsBuilder.Options, null, new DateTimeService()))
+        using (var db = new OrderContext(
+            optionsBuilder.Options, null, null, new DateTimeService()))
         {
             await db.Database.EnsureDeletedAsync();
             await db.Database.EnsureCreatedAsync();

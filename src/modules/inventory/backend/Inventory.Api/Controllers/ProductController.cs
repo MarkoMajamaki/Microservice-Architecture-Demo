@@ -1,3 +1,4 @@
+using Inventory.Application;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Api;
 
@@ -6,33 +7,35 @@ namespace Inventoty.Api;
 public class ProductController : BaseController
 {
     [HttpGet]
-    public Task<IActionResult> GetAllProducts()
+    public async Task<IActionResult> GetAllProducts()
     {
-        // return Ok(await Mediator.Send(new GetAllProducts()));
-       throw new NotImplementedException(); 
+       return Ok(await Mediator.Send(new GetAllProductsQuery()));
     }
 
-    [HttpGet]
-    public Task<IActionResult> GetProductsByCategory()
+    [HttpGet("category")]
+    public Task<IActionResult> GetProductsByCategory(int categoryId)
     {
-       throw new NotImplementedException(); 
+       // Ok(await Mediator.Send(new GetProductsByCategory()));
+       throw new NotImplementedException();
     }
 
-    [HttpPut]
-    public Task<IActionResult> CreateProduct()
+    [HttpPost("create")]
+    public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand product)
     {
-       throw new NotImplementedException(); 
+       return Ok(await Mediator.Send(product));
+    }
+
+    [HttpPut("update")]
+    public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand product)
+    {
+       return Ok(await Mediator.Send(product));
     }
 
     [HttpPost]
-    public Task<IActionResult> UpdateProduct()
-    {
-       throw new NotImplementedException(); 
-    }
-
-    [HttpPost]
+    [HttpPut("delete")]
     public Task<IActionResult> DeleteProduct(int productId)
     {
-       throw new NotImplementedException(); 
+       // Ok(await Mediator.Send(new DeleteProduct(productId)));
+       throw new NotImplementedException();
     }
 }
