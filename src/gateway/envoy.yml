@@ -43,11 +43,6 @@ static_resources:
                   prefix_rewrite: "/"
                   cluster: identity_service
               - match:
-                  prefix: "/api/inventory/"
-                route:
-                  prefix_rewrite: "/"
-                  cluster: inventory_service
-              - match:
                   prefix: "/api/order/"
                 route:
                   prefix_rewrite: "/"
@@ -101,20 +96,6 @@ static_resources:
                 address: identityapi
                 port_value: 80
   
-  - name: inventory_service
-    type: LOGICAL_DNS
-    dns_lookup_family: V4_ONLY
-    lb_policy: ROUND_ROBIN
-    load_assignment:
-      cluster_name: inventory_service
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: inventoryapi
-                port_value: 80
-
   - name: order_service
     type: LOGICAL_DNS
     dns_lookup_family: V4_ONLY

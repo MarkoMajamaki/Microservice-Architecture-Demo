@@ -84,27 +84,6 @@ services:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
       - "5004:80"
-      
-  inventoryapi:
-    image: microservice_demo/inventory-api:latest
-    container_name: inventoryapi
-    restart: on-failure   
-    build:
-      context: ../../
-      dockerfile: src/modules/inventory/backend/Dockerfile
-    depends_on: 
-      - sqlserver
-      - rabbitmq
-    environment: 
-      ASPNETCORE_ENVIRONMENT: Development
-    env_file: 
-      - ../.env/inventory-api.env
-      - ../.env/rabbitmq.env
-      - ../.env/jwt.env
-    volumes:
-      - ~/.vsdbg:/remote_debugger:rw
-    ports:
-      - "5005:80"
 
   orderapi:
     image: microservice_demo/order-api:latest
@@ -125,7 +104,7 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
-      - "5006:80"
+      - "5005:80"
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:latest
@@ -140,6 +119,13 @@ services:
       - ../../.volumes/sqlserver-logs:/var/opt/mssql/log
       - ../../.volumes/sqlserver-secrets:/var/opt/mssql/secrets
   
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: mongoLoc4LdevP4ss#
+
   elasticsearch:
     container_name: ElasticSearch
     image: docker.elastic.co/elasticsearch/elasticsearch:8.1.0
