@@ -11,19 +11,6 @@ public static partial class Startup
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
 
-        services.AddMassTransit(config => {
-
-            config.AddConsumer<ProductCreatedIntegrationEventHandler>();
-
-            config.UsingRabbitMq((ctx, cfg) => {
-                cfg.Host("amqp://guest:guest@localhost:5672");
-                
-                cfg.ReceiveEndpoint("queue", c => {
-                    c.ConfigureConsumer<ProductCreatedIntegrationEventHandler>(ctx);
-                });
-            });
-        });
-
         return services;
     }
 }

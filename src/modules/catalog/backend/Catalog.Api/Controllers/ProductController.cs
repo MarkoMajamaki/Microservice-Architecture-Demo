@@ -9,8 +9,26 @@ namespace Catalog.Api;
 /// </summary>
 public class ProductController : BaseController
 {
+    [HttpGet("catalog")]
+    public async Task<IActionResult> GetCatalog()
+    {
+        return Ok(await Mediator.Send(new GetCatalogQuery()));
+    }
+
+    [HttpGet("catalog/{categoryId}")]
+    public async Task<IActionResult> GetCatalogByCategory(int categoryId)
+    {
+        return Ok(await Mediator.Send(new GetCatalogCategoryQuery(categoryId)));
+    }
+
+    [HttpGet("{productId}")]
+    public async Task<IActionResult> GetByProductId(int productId)
+    {
+        return Ok(await Mediator.Send(new GetProductQuery(productId)));
+    }
+
     [HttpGet("{vendorId}")]
-    public async Task<IActionResult> GetByVendor(int vendorId)
+    public async Task<IActionResult> GetByVendorId(int vendorId)
     {
        return Ok(await Mediator.Send(new GetProductsByVendorQuery(vendorId)));
     }

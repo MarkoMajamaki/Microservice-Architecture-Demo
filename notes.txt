@@ -1,3 +1,8 @@
+Yhdistä catalog ja inventory
+
+PriceUpdate event menee catalogilta basketille
+
+---
 https://ardalis.com/running-integration-tests-in-build-pipelines-with-a-real-database/
 
 Deploying a Docker Container in Azure App Service using an Azure DevOps Pipeline
@@ -76,3 +81,18 @@ Endpoint:
 - Lopullinen päämäärä johon kutsu lähetetään clustrilta
 
 ----
+Domain events
+- Toteuta aggregaten sivuvaikutuksia ("side effects")
+- On mahdollista että ajan myötä sivuvaikutusten määrä kasvaa. Tällä tavalla helppo lisätä ominaisuuksia ja tehdä automaattitestejä. Toteuttaa Open Closed Principlen.
+- Normaalisti eventin toteuttava logiikka kirjoitetaan sinne missä eventti laukaistaan, mutta tällöin kyseinen logiikka on sidottu tähän osaan koodista. 
+- Domain eventit auttavat toteuttamaan logiikan erilleen. Auttaa toteuttamaan domain säännön helposti ymmärrettävällä tavalla (?).
+- Kaikki kuuntelijoiden koodi suoritetaan tai ei minkään niistä.
+- Käytetään BoundedContextin sisällä
+- Synkronisia, ei käytä mitään erillistä viestijonoa kuten RabbitMQ:ta
+- Toteutetaan in-memory mediatorin avulla
+- Toteutetaan application layerin. Domainin tulee keskittyä vain domain logiikkaan. Event handler käyttää mm. repositoreja jotka on infrastructure layerillä toteutettuja joiden rajapinnat määritellään application layerillä.
+- Event luokka on immutable
+
+Integration events
+- Asynkronisia
+- Kuunnellaan toisessa BoundedContextissa tai järjestelmässä

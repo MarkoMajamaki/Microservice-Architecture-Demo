@@ -1,5 +1,4 @@
 using Catalog.Domain;
-using MassTransit;
 using MediatR;
 
 namespace Catalog.Application;
@@ -7,14 +6,10 @@ namespace Catalog.Application;
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductCommandResponse>
 {
     private IProductRepository _productRepository;
-    private readonly IPublishEndpoint _publishEndpoint;
 
-    public CreateProductCommandHandler(
-        IProductRepository productRepository, 
-        IPublishEndpoint publishEndpoint)
+    public CreateProductCommandHandler(IProductRepository productRepository)
     {
         _productRepository = productRepository;
-        _publishEndpoint = publishEndpoint;
     }
 
     public async Task<CreateProductCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -27,16 +22,6 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
 
         // Save product to database
         await _productRepository.SaveAsync(product, cancellationToken);
-
-        // Publish integration event when product is created
-        await _publishEndpoint.Publish<ProductCreatedIntegrationEvent>(
-            new ProductCreatedIntegrationEvent {
-                Name = request.Name,
-                Description = request.Description,
-                Quantity = request.Quantity,
-                Price = request.Price,
-            }
-        );
 
         return new CreateProductCommandResponse();
     }
