@@ -35,7 +35,7 @@ public class RegisterController_Tests : IClassFixture<TestApplicationFactory<Sta
         var response = await client.PostAsync("register/register-email", content);
 
         // Assert
-        Assert.Equal(response.IsSuccessStatusCode, true);
+        Assert.True(response.IsSuccessStatusCode);
     }
 
     [Fact]
@@ -55,6 +55,6 @@ public class RegisterController_Tests : IClassFixture<TestApplicationFactory<Sta
         var response = await client.PostAsync("register/register-email", content);
 
         // Assert
-        Assert.Equal(response.IsSuccessStatusCode, false);
+        Assert.False(response.IsSuccessStatusCode);
     }
 }

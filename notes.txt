@@ -12,7 +12,7 @@ https://www.youtube.com/watch?v=E-UpGmj6B9M
 web-app-container
 https://registry.terraform.io/modules/innovationnorway/web-app-container/azurerm/latest
 
-AKV + Terraform + APp service
+AKV + Terraform + App service
 https://medium.com/pernod-ricard-tech/how-to-properly-manage-secrets-in-azure-app-service-with-terraform-44bc1ab99a02
 
 1:21:00 eteenpäin sertifikaattien asennus
@@ -44,6 +44,14 @@ https://www.filledstacks.com/post/new-setup-for-flutter-stacked-state-management
 https://www.filledstacks.com/post/flutter-state-management-with-stacked/
 
 Tarkista Autoroute (tms) package Flutterissa?
+
+Microservices Architecture on .NET with applying CQRS, Clean Architecture and Event-Driven Communication
+https://medium.com/aspnetrun/microservices-architecture-on-net-3b4865eea03f
+
+Domain events
+https://github.com/dotnet/docs/blob/main/docs/architecture/microservices/microservice-ddd-cqrs-patterns/domain-events-design-implementation.md
+https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/domain-events-design-implementation
+
 -----
 Envoy
 

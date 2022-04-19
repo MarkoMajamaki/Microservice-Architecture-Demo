@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:shared/mvvm/view_model_base.dart';
 import 'package:shared/services/navigation_service.dart';
 

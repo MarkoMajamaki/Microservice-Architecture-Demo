@@ -5,7 +5,7 @@ namespace Catalog.Api;
 
 public class SearchController : BaseController
 {
-    [HttpGet]
+    [HttpGet("{text}")]
     public Task<IActionResult> Search(string text)
     {
         throw new NotImplementedException();

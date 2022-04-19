@@ -40,7 +40,7 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
-      - "5003:80"
+      - "5002:80"
 
   catalogapi:
     image: microservice_demo/catalog-api:latest
@@ -62,7 +62,7 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
-      - "5004:80"
+      - "5003:80"
 
   identityapi:
     image: microservice_demo/identity-api:latest
@@ -83,7 +83,7 @@ services:
     volumes:
       - ~/.vsdbg:/remote_debugger:rw
     ports:
-      - "5002:80"
+      - "5004:80"
       
   inventoryapi:
     image: microservice_demo/inventory-api:latest

@@ -34,7 +34,7 @@ public class LoginController_Tests : IClassFixture<TestApplicationFactory<Startu
         var response = await client.PostAsync("login/login-email", content);
 
         // Assert
-        Assert.Equal(response.StatusCode, System.Net.HttpStatusCode.Unauthorized);
+        Assert.Equal(System.Net.HttpStatusCode.Unauthorized, response.StatusCode);
     }
 
     
@@ -57,6 +57,6 @@ public class LoginController_Tests : IClassFixture<TestApplicationFactory<Startu
         var response = await client.PostAsync("login/login-email", content);
 
         // Assert
-        Assert.Equal(response.StatusCode, System.Net.HttpStatusCode.OK);
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
     }
 }

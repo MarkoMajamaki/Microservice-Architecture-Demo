@@ -1,4 +1,5 @@
 using Inventory.Domain;
+using MassTransit;
 using MediatR;
 
 namespace Inventory.Application;
@@ -6,10 +7,14 @@ namespace Inventory.Application;
 public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, CreateProductCommandResponse>
 {
     private IProductRepository _productRepository;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public CreateProductCommandHandler(IProductRepository productRepository)
+    public CreateProductCommandHandler(
+        IProductRepository productRepository, 
+        IPublishEndpoint publishEndpoint)
     {
         _productRepository = productRepository;
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task<CreateProductCommandResponse> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -20,7 +25,18 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         product.Quantity = request.Quantity;
         product.Price = request.Price;
 
+        // Save product to database
         await _productRepository.SaveAsync(product, cancellationToken);
+
+        // Publish integration event when product is created
+        await _publishEndpoint.Publish<ProductCreatedIntegrationEvent>(
+            new ProductCreatedIntegrationEvent {
+                Name = request.Name,
+                Description = request.Description,
+                Quantity = request.Quantity,
+                Price = request.Price,
+            }
+        );
 
         return new CreateProductCommandResponse();
     }

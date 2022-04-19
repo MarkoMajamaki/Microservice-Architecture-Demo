@@ -11,8 +11,8 @@ public class CatalogController : BaseController
         throw new NotImplementedException();
     }
         
-    [HttpGet]
-    public Task<IActionResult> GetByCategory()
+    [HttpGet("{categoryId}")]
+    public Task<IActionResult> GetByCategory(int categoryId)
     {
         throw new NotImplementedException();
     }

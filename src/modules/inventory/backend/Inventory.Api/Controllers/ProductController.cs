@@ -12,7 +12,7 @@ public class ProductController : BaseController
        return Ok(await Mediator.Send(new GetAllProductsQuery()));
     }
 
-    [HttpGet("category")]
+    [HttpGet("category/{categoryId}")]
     public Task<IActionResult> GetProductsByCategory(int categoryId)
     {
        // Ok(await Mediator.Send(new GetProductsByCategory()));
@@ -32,7 +32,7 @@ public class ProductController : BaseController
     }
 
     [HttpPost]
-    [HttpPut("delete")]
+    [HttpPut("delete/{productId}")]
     public Task<IActionResult> DeleteProduct(int productId)
     {
        // Ok(await Mediator.Send(new DeleteProduct(productId)));

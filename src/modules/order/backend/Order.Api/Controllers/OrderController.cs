@@ -12,16 +12,16 @@ public class OrderController : BaseController
         return Ok(await Mediator.Send(new GetAllOrdersQuery()));
     }
 
-    [HttpGet("vendor/{id}")]
+    [HttpGet("vendor/{vendorId}")]
     public Task<IActionResult> GetOrdersByVendor(int vendorId)
     {
         throw new NotImplementedException();
     }
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetOrder(int id)
+    [HttpGet("{orderId}")]
+    public async Task<IActionResult> GetOrder(int orderId)
     {
-        var result = await Mediator.Send(new GetOrderByIdQuery(id));
+        var result = await Mediator.Send(new GetOrderByIdQuery(orderId));
         return result != null ? Ok(result) : NotFound();
     }
 

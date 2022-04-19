@@ -29,34 +29,6 @@ class ProductViewModel extends ViewModelBase {
     }
   }
 
-  @override
-  void onPopNext() {
-    if (kDebugMode) {
-      print("onPopNext: $title");
-    }
-  }
-
-  @override
-  void onPush() {
-    if (kDebugMode) {
-      print("onPush: $title");
-    }
-  }
-
-  @override
-  void onPop() {
-    if (kDebugMode) {
-      print("onPush: $title");
-    }
-  }
-
-  @override
-  void onPushNext() {
-    if (kDebugMode) {
-      print("onPushNext: $title");
-    }
-  }
-
   void navigateCommand() {
     navigationService.navigate("CatalogView");
   }
