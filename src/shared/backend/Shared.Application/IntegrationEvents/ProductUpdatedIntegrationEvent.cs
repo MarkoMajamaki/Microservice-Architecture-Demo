@@ -1,4 +1,4 @@
-namespace Basket.Application;
+namespace Shared.Application.IntegrationEvents;
 
 public class ProductUpdatedIntegrationEvent
 {

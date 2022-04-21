@@ -1,17 +1,5 @@
-# Build irder module
-dotnet build src/modules/inventory/backend/Tools/Inventory.DbPopulator/
-
-# Run inventory module database populator
-dotnet run \
-    --project src/modules/inventory/backend/Tools/Inventory.DbPopulator/Inventory.DbPopulator.csproj -- \
-    -ip localhost \
-    -port 1433 \
-    -u sa \
-    -n inventory-db \
-    -p loc4LdevP4ss#
-
 # Build order module
-dotnet build src/modules/inventory/backend/Tools/Order.DbPopulator/
+dotnet build src/modules/order/backend/Tools/Order.DbPopulator/
 
 # Run order module database populator
 dotnet run \

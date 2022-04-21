@@ -3,15 +3,15 @@
     "compounds": [
         {
             "name": "Run all (web)",
-            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "InventoryApi", "OrderApi", "Frontend (Web)"]
+            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "OrderApi", "Frontend (Web)"]
         },
         {
             "name": "Run all (macos)",
-            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "InventoryApi", "OrderApi", "Frontend (Mac)"]
+            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "OrderApi", "Frontend (Mac)"]
         },
         {
             "name": "Run server only",
-            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "InventoryApi", "OrderApi"]
+            "configurations": ["BasketApi", "CatalogApi", "IdentityApi", "OrderApi"]
         },
         {
             "name": "Run migrations",
@@ -59,7 +59,11 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "CONNECTIONSTRING": "Redis connection string"
+                "CONNECTIONSTRING": "Redis connection string",
+                "RABBITMQ__HOSTNAME": "localhost",
+                "RABBITMQ__PORT": "5672",
+                "RABBITMQ__USERNAME": "guest",
+                "RABBITMQ__PASSWORD": "guest",
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
@@ -84,7 +88,11 @@
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "REDIS_CONNECTIONSTRING": "Redis connection string",
-                "ES_CONNECTIONSTRING": "ElasticSearch connection string"
+                "ES_CONNECTIONSTRING": "ElasticSearch connection string",
+                "RABBITMQ__HOSTNAME": "localhost",
+                "RABBITMQ__PORT": "5672",
+                "RABBITMQ__USERNAME": "guest",
+                "RABBITMQ__PASSWORD": "guest",
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
@@ -118,30 +126,6 @@
             }
         },
         {
-            "name": "InventoryApi",
-            "type": "coreclr",
-            "request": "launch",
-            "preLaunchTask": "build_inventoryapi",
-            "program": "${workspaceFolder}/src/modules/inventory/backend/Inventory.Api/bin/Debug/net6.0/Inventory.Api.dll",
-            "args": [],
-            "cwd": "${workspaceFolder}/src/modules/inventory/backend/Inventory.Api",
-            "stopAtEntry": false,           
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=inventory-db;User=sa;Password=loc4LdevP4ss#"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/Views"
-            },
-            "logging": {
-                "moduleLoad": false
-            }
-        },
-        {
             "name": "OrderApi",
             "type": "coreclr",
             "request": "launch",
@@ -156,7 +140,11 @@
             },
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=order-db;User=sa;Password=loc4LdevP4ss#"
+                "CONNECTIONSTRING": "Server=localhost,1433;Initial Catalog=order-db;User=sa;Password=loc4LdevP4ss#",
+                "RABBITMQ__HOSTNAME": "localhost",
+                "RABBITMQ__PORT": "5672",
+                "RABBITMQ__USERNAME": "guest",
+                "RABBITMQ__PASSWORD": "guest",
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

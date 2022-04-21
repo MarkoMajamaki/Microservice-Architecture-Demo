@@ -6,19 +6,6 @@ jobs:
   displayName: Build and push to ACR
   steps:
 
-  # Build InventoryApi and push to ACR
-  - task: Docker@2
-    displayName: InventoryApi - Build and push to ACR
-    inputs:
-      containerRegistery: 'microservicedemoacr${{ parameters.env }}'
-      repository: 'inventory-api'
-      command: 'buildAndPush'
-      Dockerfile: '$(Build.SourceDictionary)/src/modules/inventory/backend/Dockerfile'
-      buildContext: '.'
-      tags: |
-        $(Build.BuildId)
-        latest
-
   # Build CatalogApi and push to ACR
   - task: Docker@2
     displayName: CatalogApi - Build and push to ACR

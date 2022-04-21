@@ -40,9 +40,17 @@ public class ProductController : BaseController
     }
 
     [HttpPut("update")]
-    public async Task<IActionResult> Update([FromBody] UpdateProductCommand product)
+    public async Task<IActionResult> Update([FromBody] ProductUpdateDto product)
     {
-       return Ok(await Mediator.Send(product));
+       return Ok(await Mediator.Send(new UpdateProduct.Command
+       {
+           // TODO: Automapper
+           Id = product.Id,
+           Name = product.Name, 
+           Description = product.Description,
+           Quantity = product.Quantity, 
+           Price = product.Price,
+       }));
     }
 
     [HttpPost]

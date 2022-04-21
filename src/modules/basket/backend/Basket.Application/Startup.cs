@@ -1,23 +1,31 @@
+using System.Reflection;
 using MassTransit;
+using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Application;
 
 namespace Basket.Application;
 
 public static partial class Startup
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddMediatR(Assembly.GetExecutingAssembly());
 
         services.AddMassTransit(config => {
 
             config.AddConsumer<ProductUpdatedIntegrationEventHandler>();
 
+            config.SetKebabCaseEndpointNameFormatter();
+
             config.UsingRabbitMq((ctx, cfg) => {
-                cfg.Host("amqp://guest:guest@localhost:5672");
+
+                var rabbitMqSettings = configuration.GetSection(RabbitMQSettings.Key).Get<RabbitMQSettings>();
+
+                cfg.Host($"amqp://{rabbitMqSettings.UserName}:{rabbitMqSettings.Password}@{rabbitMqSettings.HostName}:{rabbitMqSettings.Port}");
                 
-                cfg.ReceiveEndpoint("queue", c => {
-                    c.ConfigureConsumer<ProductUpdatedIntegrationEventHandler>(ctx);
-                });
+                cfg.ConfigureEndpoints(ctx);
             });
         });
 

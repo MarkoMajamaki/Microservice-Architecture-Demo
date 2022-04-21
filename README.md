@@ -65,12 +65,11 @@ docker build -t microservice_demo/identity-api:latest -f src/modules/identity/ba
 Update migrations
 ```bash
 dotnet ef migrations add "Initial" --project src/modules/order/backend/Order.Infrastructure --startup-project src/modules/order/backend/Order.Api
-
-dotnet ef migrations add "Initial" --project src/modules/inventory/backend/Inventory.Infrastructure --startup-project src/modules/inventory/backend/Inventory.Api
 ```
 
 Run envoy
 ```bash
  docker build -t microservice_demo/gateway -f src/gateway/Dockerfile .
  docker run  -p 9901:9901 -p 10000:10000 microservice_demo/gateway
- ```
+
+ Open RabbitMQ management console: http://localhost:15672

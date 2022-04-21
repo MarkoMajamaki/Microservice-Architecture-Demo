@@ -12,9 +12,9 @@ public class BasketController : BaseController
         throw new NotImplementedException();
     }
 
-    [HttpPost("add")]
-    public Task<IActionResult> AddItem([FromBody] AddItemToBasketCommand item)
+    [HttpPost("add/{productId}")]
+    public async Task<IActionResult> AddItem(int productId)
     {
-        throw new NotImplementedException();
+        return Ok(await Mediator.Send(new AddItemToBasket.Command(productId)));
     }
 }

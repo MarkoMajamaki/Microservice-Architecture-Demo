@@ -41,18 +41,6 @@
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "build_inventoryapi",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "build",
-                "${workspaceFolder}/src/modules/inventory/backend/Inventory.Api/Inventory.Api.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
-            ],
-            "problemMatcher": "$msCompile"
-        },
-        {
             "label": "build_orderapi",
             "command": "dotnet",
             "type": "process",

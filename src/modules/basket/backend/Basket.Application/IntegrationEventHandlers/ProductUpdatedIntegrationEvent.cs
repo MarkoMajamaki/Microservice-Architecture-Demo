@@ -1,6 +1,7 @@
 
 using MassTransit;
 using Microsoft.Extensions.Logging;
+using Shared.Application.IntegrationEvents;
 
 namespace Basket.Application;
 
