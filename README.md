@@ -1,18 +1,18 @@
 # Microservice architecture demo
 
+Microservice architecture project for learning and testing. 
+
 ## Frontend
 * Flutter Web / iOS / Android
 
 ## Backend
 * ASP.NET
 * Mediator
-* AutoMapper
 * CQRS
 * Clean Architecture
 * Microservices
 * Google and Facebook authentication
 * JWT
-* Polly
 * MassTransit
 
 ## CI/CD
@@ -25,27 +25,15 @@
 * Azure Kubernetes Services
 * Azure Container Instances
 * SQL Server
-* Elastic Search
-* Redis
 * Envoy Gateway
 * Docker
 * RabbitMQ
 * Kustomize
 
-## Monitoring
-* Prometheus
-* Linkerd
-* ElasticSearch and Kibana to analyze logs
-
 ## Test
 
 * Unit testing with xUnit
 * Integration testing with xUnit, SQL and in memory database 
-* UI testing with Flutter
-* Infrastructure testing with Terraform in Azure
-* Kubernetes deployment testing
-* Load and stress testing
-* Security tests
 
 ## Deployment
 * Azure Kubernetes Services
