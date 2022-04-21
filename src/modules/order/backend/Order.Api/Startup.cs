@@ -19,7 +19,7 @@ public class Startup
     /// </summary>
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddApplication();
+        services.AddApplication(Configuration);
         services.AddInfrastructure(Configuration);
         services.AddTransient<ExceptionMiddleware>();
 

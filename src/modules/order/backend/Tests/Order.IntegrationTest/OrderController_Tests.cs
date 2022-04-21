@@ -48,7 +48,7 @@ public class OrderController_Test : IntegrationTestBase<Order.Api.Startup, Order
         var getOrderResponse = await client.GetAsync("order/1");
         var getOrderResponseString = await getOrderResponse.Content.ReadAsStringAsync();
         
-        var getOrderResponseTyped = JsonSerializer.Deserialize<GetOrderByIdResponse>(getOrderResponseString, 
+        var getOrderResponseTyped = JsonSerializer.Deserialize<GetOrderById.Response>(getOrderResponseString, 
             new JsonSerializerOptions() {PropertyNameCaseInsensitive = true});
 
         Assert.Equal(getOrderResponseTyped.CustomerId, customerId);

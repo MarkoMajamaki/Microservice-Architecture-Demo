@@ -15,7 +15,7 @@ public static partial class Startup
 
         services.AddMassTransit(config => {
 
-            config.AddConsumer<ProductUpdatedIntegrationEventHandler>();
+            RegisterIntegrationEvents(config);
 
             config.SetKebabCaseEndpointNameFormatter();
 
@@ -30,5 +30,10 @@ public static partial class Startup
         });
 
         return services;
+    }
+
+    private static void RegisterIntegrationEvents(IBusRegistrationConfigurator registerer)
+    {
+            registerer.AddConsumer<ProductUpdatedIntegrationEventHandler>();
     }
 }
