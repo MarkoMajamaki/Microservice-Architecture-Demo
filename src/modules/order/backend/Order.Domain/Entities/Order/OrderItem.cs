@@ -4,13 +4,12 @@ namespace Order.Domain;
 
 public class OrderItem : Entity
 {
-    public int Amount { get; private set; }
+    public int Quantity { get; private set; }
     public int ProductId { get; private set; }
-    // public Product Product { get; private set; }
 
-    public OrderItem(int amount, int productId)
+    public OrderItem(int quantity, int productId)
     {
-        Amount = amount;
+        Quantity = quantity;
         ProductId = productId;
     }
 }

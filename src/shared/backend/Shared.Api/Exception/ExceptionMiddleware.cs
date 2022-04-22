@@ -23,21 +23,11 @@ public class ExceptionMiddleware : IMiddleware
         }
         catch (Exception x)
         {
-            string title = null;
-            if (x is DomainException domainException)
-            {
-                title = domainException.Title;
-                context.Response.StatusCode = (int)domainException.StatusCode;
-            }
-            else
-            {
-                context.Response.StatusCode = (int)HttpStatusCode.MultiStatus;
-            }
+            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
             context.Response.ContentType = "application/json";
 
             var errorResponse = new {
-                Title = title,
                 StatusCodes = context.Response.StatusCode,
                 Message = x.Message
             };

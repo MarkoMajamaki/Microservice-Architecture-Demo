@@ -9,7 +9,8 @@ public class OrderController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetOrders()
     {
-        return Ok(await Mediator.Send(new GetAllOrders.Query()));
+        var result = await Mediator.Send(new GetAllOrders.Query());
+        return Ok(Mapper.Map<List<GetOrderResponse>>(result));
     }
 
     [HttpGet("vendor/{vendorId}")]
@@ -22,12 +23,22 @@ public class OrderController : BaseController
     public async Task<IActionResult> GetOrder(int orderId)
     {
         var result = await Mediator.Send(new GetOrderById.Query(orderId));
-        return result != null ? Ok(result) : NotFound();
+        
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(Mapper.Map<GetOrderResponse>(result));
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> Create([FromBody] CreateOrder.Command order)
+    public async Task<IActionResult> Create([FromBody] CreateOrderRequest order)
     {
-        return Ok(await Mediator.Send(order));
+        var command = Mapper.Map<CreateOrder.Command>(order);
+
+        var result = await Mediator.Send(command);
+
+        return Ok(Mapper.Map<CreateOrderResponse>(result));
     }
 }

@@ -4,9 +4,9 @@ namespace Order.Domain;
 
 public class Order : Entity, IAggregateRoot
 {
-    public IList<OrderItem> Items { get; private set; }
-    // public Status Status { get; private set; }
+    public Status Status { get; private set; }
     public int CustomerId { get; private set; }
+    public IList<OrderItem> Items { get; private set; }
 
     public Order(int customerId)
     {

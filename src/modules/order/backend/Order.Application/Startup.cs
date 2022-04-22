@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Shared.Application;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
+using FluentValidation;
 
 namespace Order.Application;
 
@@ -13,6 +14,10 @@ public static partial class Startup
     public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddMediatR(Assembly.GetExecutingAssembly());
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
+        services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
 
         services.AddMassTransit(config => {
 

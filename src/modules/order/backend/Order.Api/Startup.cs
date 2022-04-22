@@ -23,6 +23,8 @@ public class Startup
         services.AddInfrastructure(Configuration);
         services.AddTransient<ExceptionMiddleware>();
 
+        services.AddAutoMapper(typeof(Startup));
+
         services.AddControllers();
         services.AddSwaggerGen(c =>
         {

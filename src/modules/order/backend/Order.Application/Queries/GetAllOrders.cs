@@ -24,10 +24,10 @@ public static class GetAllOrders
 
         public async Task<Response> Handle(Query request, CancellationToken cancellationToken)
         {
-            var order = await _orderRepository.GetOrdersAsync(cancellationToken);
-            return new Response(order);
+            var orders = await _orderRepository.GetOrdersAsync(cancellationToken);
+            return new Response(orders);
         }
     }
 
-    public record Response(IEnumerable Orders);
+    public record Response(IEnumerable<Domain.Order> Orders);
 }

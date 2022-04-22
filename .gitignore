@@ -5,3 +5,4 @@ obj
 .terraform
 .terraform.lock.hcl
 tfplan
+notes.txt
