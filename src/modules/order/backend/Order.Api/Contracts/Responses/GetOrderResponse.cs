@@ -2,14 +2,25 @@ namespace Order.Api;
 
 public class GetOrderResponse
 {
-    public int OrderId { get; set; }
-    public int OrderStatus { get; set; }
-    public int CustomerId { get; set; }
-    public List<OrderItem> Items { get; set; }
+    public int OrderId { get; init; }
+    public int CustomerId { get; init; }
+    public List<OrderItem> Items { get; init; }
+    public Address ShipToAddress { get; set; }
 
-    public class OrderItem
+    public record OrderItem
     {
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+        public int ProductId { get; init; }
+        public string ProductName { get; init; }
+        public decimal Price { get; init; }
+        public string PictureUrl { get; init; }
+        public int Quantity { get; init; }
+    }
+
+    public record Address
+    {
+        public string Country { get; init; }
+        public string City { get; init; }
+        public string ZipCode { get; init; }  
+        public string Street { get; init; }
     }
 }

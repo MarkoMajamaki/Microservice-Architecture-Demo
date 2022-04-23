@@ -25,11 +25,12 @@ public class DbPopulator
             db.Customer.Add(customer);
             await db.SaveChangesAsync();
 
-            Order.Domain.Order order = new Order.Domain.Order(customer.Id);
-            order.AddItem(new OrderItem(1, 1));
-            order.AddItem(new OrderItem(1, 2));
-            order.AddItem(new OrderItem(1, 3));
-            order.AddItem(new OrderItem(1, 4));
+            Order.Domain.Order order = new Order.Domain.Order(customer.Id, new Address("Test", "Test", "0", "Test"));
+            order.AddItem(new OrderItem(1, "Product name1", 1, null, 1));
+            order.AddItem(new OrderItem(1, "Product name2", 1, null, 1));
+            order.AddItem(new OrderItem(1, "Product name3", 1, null, 1));
+            order.AddItem(new OrderItem(1, "Product name4", 1, null, 1));
+            order.AddItem(new OrderItem(1, "Product name%", 1, null, 1));
             db.Orders.Add(order);
             await db.SaveChangesAsync();
         }

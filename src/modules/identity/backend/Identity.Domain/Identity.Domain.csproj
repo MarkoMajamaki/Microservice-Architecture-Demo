@@ -2,7 +2,7 @@
 
     <ItemGroup>
     <ProjectReference Include="..\..\..\..\shared\backend\Shared.Domain\Shared.Domain.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.4" />
   </ItemGroup>
 
   <PropertyGroup>

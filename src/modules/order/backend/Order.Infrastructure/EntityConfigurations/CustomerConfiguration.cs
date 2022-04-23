@@ -10,6 +10,6 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {
         builder.Ignore(e => e.DomainEvents);
 
-        builder.OwnsOne(e => e.Address);
+        builder.OwnsOne(typeof(Address), "Address");
     }
 }

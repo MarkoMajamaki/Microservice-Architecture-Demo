@@ -13,7 +13,10 @@ public class OrderRepository : IOrderRepository
 
     public async Task<Order.Domain.Order> GetOrderAsync(int orderId, CancellationToken cancellationToken)
     {
-        return await _context.Orders.FindAsync(orderId);
+        return await _context
+            .Orders
+            .Include(x => x.Items)
+            .FirstOrDefaultAsync(x => x.Id == orderId);
     }
 
     public async Task<IEnumerable<Order.Domain.Order>> GetOrdersAsync(CancellationToken cancellationToken)
@@ -23,7 +26,7 @@ public class OrderRepository : IOrderRepository
 
     public async Task SaveAsync(Order.Domain.Order order, CancellationToken cancellationToken)
     {
-        _context.Add(order);
+        _context.Orders.Add(order);
         await _context.SaveChangesAsync(cancellationToken);
     }
 }

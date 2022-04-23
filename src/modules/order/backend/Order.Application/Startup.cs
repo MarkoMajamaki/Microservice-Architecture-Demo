@@ -13,27 +13,36 @@ public static partial class Startup
 {
     public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddAutoMapper(typeof(Order.Application.Startup));
         services.AddMediatR(Assembly.GetExecutingAssembly());
+
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
         services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
 
-        services.AddMassTransit(config => {
+        var rabbitMqSettings = configuration.GetSection(RabbitMQSettings.Key).Get<RabbitMQSettings>();
 
-            RegisterIntegrationEvents(config);
+        if (rabbitMqSettings != null)
+        {
+            services.AddMassTransit(config => {
 
-            config.SetKebabCaseEndpointNameFormatter();
+                RegisterIntegrationEvents(config);
 
-            config.UsingRabbitMq((ctx, cfg) => {
+                config.SetKebabCaseEndpointNameFormatter();
 
-                var rabbitMqSettings = configuration.GetSection(RabbitMQSettings.Key).Get<RabbitMQSettings>();
+                config.UsingRabbitMq((ctx, cfg) => {
 
-                cfg.Host($"amqp://{rabbitMqSettings.UserName}:{rabbitMqSettings.Password}@{rabbitMqSettings.HostName}:{rabbitMqSettings.Port}");
-                
-                cfg.ConfigureEndpoints(ctx);
+                    cfg.Host($"amqp://{rabbitMqSettings.UserName}:{rabbitMqSettings.Password}@{rabbitMqSettings.HostName}:{rabbitMqSettings.Port}");
+                    
+                    cfg.ConfigureEndpoints(ctx);
+                });
             });
-        });
+        }
+        else
+        {
+            // TODO: Logging
+        }
 
         return services;
     }

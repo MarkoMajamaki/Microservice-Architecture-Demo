@@ -7,6 +7,11 @@ public class Customer : Entity, IAggregateRoot
     public string LastName { get; private set; }
     public Address Address { get; private set; }
 
+    private Customer()
+    {
+        // required by EF
+    }
+
     public Customer(string firstName, string lastName)
     {
         FirstName = firstName;

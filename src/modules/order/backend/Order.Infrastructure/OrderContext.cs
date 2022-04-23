@@ -11,7 +11,6 @@ public class OrderContext : DbContextBase
     public DbSet<Customer> Customer { get; set; }
     public DbSet<Order.Domain.Order> Orders { get; set; }
     public DbSet<OrderItem> OrderItems { get; set; }
-    public DbSet<Product> Products { get; set; }
 
     public OrderContext(
         DbContextOptions<OrderContext> options,

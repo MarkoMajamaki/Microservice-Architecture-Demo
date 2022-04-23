@@ -8,6 +8,7 @@ Microservice architecture project for learning and testing.
 ## Backend
 * ASP.NET
 * Mediator
+* Automapper
 * CQRS
 * Clean Architecture
 * Microservices

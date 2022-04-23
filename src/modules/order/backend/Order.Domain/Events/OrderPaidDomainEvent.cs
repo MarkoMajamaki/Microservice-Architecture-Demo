@@ -2,11 +2,11 @@ using Shared.Domain;
 
 namespace Order.Domain;
 
-public class OrderCreatedEvent : DomainEvent
-{
+public class OrderPaidDomainEvent : DomainEvent
+{   
     public Order Order { get; init; }
 
-    public OrderCreatedEvent(Order order)
+    public OrderPaidDomainEvent(Order order) 
     {
         Order = order;
     }

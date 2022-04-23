@@ -78,6 +78,11 @@ public abstract class Entity : IHasDomainEvent
     {
         _domainEvents?.Remove(domainEvent);        
     }
+
+    public void RemoveDomainEventsByType(Type eventType)
+    {
+        _domainEvents?.RemoveAll(x => x.GetType() == eventType);        
+    }
     
     public void ClearDomainEvents()
     {

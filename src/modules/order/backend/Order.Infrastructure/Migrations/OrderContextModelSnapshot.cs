@@ -17,7 +17,7 @@ namespace Order.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.2")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -89,9 +89,6 @@ namespace Order.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("Created")
                         .HasColumnType("datetime2");
 
@@ -107,7 +104,19 @@ namespace Order.Infrastructure.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<string>("PictureUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -115,40 +124,6 @@ namespace Order.Infrastructure.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItems");
-                });
-
-            modelBuilder.Entity("Order.Domain.Product", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime?>("Created")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("LastModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("Order.Domain.Customer", b =>
@@ -164,10 +139,10 @@ namespace Order.Infrastructure.Migrations
                             b1.Property<string>("Country")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("PostalCode")
+                            b1.Property<string>("Street")
                                 .HasColumnType("nvarchar(max)");
 
-                            b1.Property<string>("Street")
+                            b1.Property<string>("ZipCode")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("CustomerId");
@@ -179,6 +154,59 @@ namespace Order.Infrastructure.Migrations
                         });
 
                     b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Order.Domain.Order", b =>
+                {
+                    b.OwnsOne("Order.Domain.Address", "ShipToAddress", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("City")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("City");
+
+                            b1.Property<string>("Country")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Street");
+
+                            b1.Property<string>("ZipCode")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ZipCode");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.OwnsOne("Order.Domain.OrderStatus", "Status", b1 =>
+                        {
+                            b1.Property<int>("OrderId")
+                                .HasColumnType("int");
+
+                            b1.Property<int>("Code")
+                                .HasColumnType("int")
+                                .HasColumnName("Status");
+
+                            b1.HasKey("OrderId");
+
+                            b1.ToTable("Orders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderId");
+                        });
+
+                    b.Navigation("ShipToAddress");
+
+                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("Order.Domain.OrderItem", b =>

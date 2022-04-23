@@ -19,6 +19,12 @@ public class OrderController : BaseController
         throw new NotImplementedException();
     }
 
+    [HttpGet("customer/{customerId}")]
+    public Task<IActionResult> GetOrdersByCustomer(int customerId)
+    {
+        throw new NotImplementedException();
+    }
+
     [HttpGet("{orderId}")]
     public async Task<IActionResult> GetOrder(int orderId)
     {
