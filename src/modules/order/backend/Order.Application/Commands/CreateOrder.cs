@@ -40,14 +40,10 @@ public static class CreateOrder
     public class Handler : IRequestHandler<Command, Response>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IMapper _mapper;
 
-        public Handler(
-            IOrderRepository orderRepository,
-            IMapper mapper)
+        public Handler(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
-            _mapper = mapper;
         }
 
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)

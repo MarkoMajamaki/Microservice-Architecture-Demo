@@ -35,5 +35,5 @@ spec:
     app: order-api
   ports:
   - protocol: TCP
-    port: 5002
+    port: 5005
     targetPort: 80

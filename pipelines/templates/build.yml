@@ -6,22 +6,8 @@ jobs:
   displayName: Build and push to ACR
   steps:
 
-  # Build CatalogApi and push to ACR
   - task: Docker@2
-    displayName: CatalogApi - Build and push to ACR
-    inputs:
-      containerRegistery: 'microservicedemoacr${{ parameters.env }}'
-      repository: 'catalog-api'
-      command: 'buildAndPush'
-      Dockerfile: '$(Build.SourceDictionary)/src/modules/catalog/backend/Dockerfile'
-      buildContext: '.'
-      tags: |
-        $(Build.BuildId)
-        latest
-
-  # Build BasketApi and push to ACR
-  - task: Docker@2
-    displayName: BasketApi - Build and push to ACR
+    displayName: BasketApi
     inputs:
       containerRegistery: 'microservicedemoacr${{ parameters.env }}'
       repository: 'basket-api'
@@ -32,9 +18,32 @@ jobs:
         $(Build.BuildId)
         latest
 
-  # Build OrderApi and push to ACR
   - task: Docker@2
-    displayName: OrderApi - Build and push to ACR
+    displayName: CatalogApi
+    inputs:
+      containerRegistery: 'microservicedemoacr${{ parameters.env }}'
+      repository: 'catalog-api'
+      command: 'buildAndPush'
+      Dockerfile: '$(Build.SourceDictionary)/src/modules/catalog/backend/Dockerfile'
+      buildContext: '.'
+      tags: |
+        $(Build.BuildId)
+        latest
+
+  - task: Docker@2
+    displayName: IdentityApi
+    inputs:
+      containerRegistery: 'microservicedemoacr${{ parameters.env }}'
+      repository: 'identity-api'
+      command: 'buildAndPush'
+      Dockerfile: '$(Build.SourceDictionary)/src/modules/identity/backend/Dockerfile'
+      buildContext: '.'
+      tags: |
+        $(Build.BuildId)
+        latest
+  
+  - task: Docker@2
+    displayName: OrderApi
     inputs:
       containerRegistery: 'microservicedemoacr${{ parameters.env }}'
       repository: 'order-api'
@@ -45,27 +54,13 @@ jobs:
         $(Build.BuildId)
         latest
 
-  # Build IdentityApi and push to ACR
   - task: Docker@2
-    displayName: IdentityApi - Build and push to ACR
-    inputs:
-      containerRegistery: 'microservicedemoacr${{ parameters.env }}'
-      repository: 'identity-api'
-      command: 'buildAndPush'
-      Dockerfile: '$(Build.SourceDictionary)/src/modules/Identity/backend/Dockerfile'
-      buildContext: '.'
-      tags: |
-        $(Build.BuildId)
-        latest
-  
-  # Build Frontend and push to ACR
-  - task: Docker@2
-    displayName: Frontend - Build and push to ACR
+    displayName: Frontend
     inputs:
       containerRegistery: 'microservicedemoacr${{ parameters.env }}'
       repository: 'frontend'
       command: 'buildAndPush'
-      Dockerfile: '$(Build.SourceDictionary)/src/core/frontend/app/Dockerfile'
+      Dockerfile: '$(Build.SourceDictionary)/src/app/frontend/Dockerfile'
       buildContext: '.'
       tags: |
         $(Build.BuildId)

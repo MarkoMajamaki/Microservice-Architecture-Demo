@@ -14,7 +14,7 @@ Microservice architecture project for learning and testing.
 * Microservices
 * Google and Facebook authentication
 * JWT
-* MassTransit
+* MassTransit integration events and Sagas
 
 ## CI/CD
 * Azure Devops pipelines

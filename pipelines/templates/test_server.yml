@@ -6,7 +6,7 @@ jobs:
     # Order module
 
     - task: DotNetCoreCLI@2
-      displayName: OrderApi.IntegrationTest
+      displayName: OrderApi
       inputs:
         command: 'test'
         projects: 'src/modules/order/backend/Tests/OrderApi.IntegrationTest/OrderApi.IntegrationTest.csproj'
@@ -25,12 +25,12 @@ jobs:
       displayName: Identity.IntegrationTest
       inputs:
         command: 'test'
-        projects: 'src/modules/Identity/backend/Tests/IdentityApi.IntegrationTest/IdentityApi.IntegrationTest.csproj'
+        projects: 'src/modules/identity/backend/Tests/IdentityApi.IntegrationTest/IdentityApi.IntegrationTest.csproj'
         testRunTitle: 'IdentityApi integraition tests'      
 
     - task: DotNetCoreCLI@2
       displayName: Identity.UnitTest
       inputs:
         command: 'test'
-        projects: 'src/modules/Identity/backend/Tests/IdentityApi.UnitTest/IdentityApi.UnitTest.csproj'
+        projects: 'src/modules/identity/backend/Tests/IdentityApi.UnitTest/IdentityApi.UnitTest.csproj'
         testRunTitle: 'IdentityApi unit tests'

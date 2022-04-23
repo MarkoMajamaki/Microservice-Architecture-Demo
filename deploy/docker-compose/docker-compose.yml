@@ -50,7 +50,7 @@ services:
       context: ../../
       dockerfile: src/modules/catalog/backend/Dockerfile
     depends_on: 
-      #- redis
+      - mongo
       - elasticsearch
       - rabbitmq
     environment: 
