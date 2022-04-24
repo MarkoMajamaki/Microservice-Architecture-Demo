@@ -31,6 +31,9 @@ public static partial class Startup
 
                 config.SetKebabCaseEndpointNameFormatter();
 
+                config.AddSagaStateMachine<CreateOrderStateMachine, CreateOrderState>()
+                    .InMemoryRepository(); // TODO
+
                 config.UsingRabbitMq((ctx, cfg) => {
 
                     cfg.Host($"amqp://{rabbitMqSettings.UserName}:{rabbitMqSettings.Password}@{rabbitMqSettings.HostName}:{rabbitMqSettings.Port}");
