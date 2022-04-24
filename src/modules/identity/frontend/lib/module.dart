@@ -6,7 +6,7 @@ import 'package:identity/views/login_view.dart';
 import 'package:shared/common/localization.dart';
 import 'package:modulary/modulary.dart';
 
-class AuthModule extends Module {
+class IdentityModule extends Module {
   @override
   void initialize() {
     // Add module localization strings source folder

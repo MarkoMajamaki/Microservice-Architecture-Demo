@@ -14,6 +14,7 @@ class CatalogView extends StatelessWidget {
       viewModel: getIt<CatalogViewModel>(),
       view: (viewModel) {
         return Scaffold(
+          appBar: AppBar(),
           body: Center(
               child: Column(
             children: [

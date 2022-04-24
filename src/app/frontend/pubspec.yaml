@@ -26,6 +26,8 @@ dependencies:
     path: ../../shared/frontend/
   catalog:
     path: ../../modules/catalog/frontend
+  identity:
+    path: ../../modules/identity/frontend
 
 dev_dependencies:
   flutter_test:

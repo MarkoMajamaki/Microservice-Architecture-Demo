@@ -21,10 +21,7 @@ Microservice architecture project for learning and testing.
 
 ## Infrastructure
 * Terraform
-* Azure Key Vault
-* Azure Container Registery
-* Azure Kubernetes Services
-* Azure Container Instances
+* Azure (AKV, AKS, ACI, ACR)
 * SQL Server
 * Envoy Gateway
 * Docker
