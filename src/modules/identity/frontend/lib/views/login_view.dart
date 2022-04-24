@@ -4,66 +4,58 @@ import 'package:identity/viewmodels/login_viewmodel.dart';
 import 'package:identity/widgets/facebook_login_button.dart';
 import 'package:identity/widgets/google_login_button.dart';
 import 'package:shared/common/localization.dart';
+import 'package:shared/mvvm/view_base.dart';
 
-enum LoginViewModes { login, signup }
-
-class LoginView extends StatefulWidget {
+class LoginView extends StatelessWidget {
   static String route = "LoginView";
-  const LoginView({Key? key}) : super(key: key);
 
-  @override
-  _LoginViewState createState() => _LoginViewState();
-}
+  LoginView({Key? key}) : super(key: key);
 
-class _LoginViewState extends State<LoginView> {
-  LoginViewModes? _mode;
-  final LoginViewModel _viewModel = getIt<LoginViewModel>();
+  final TextEditingController _loginEmailTextController =
+      TextEditingController();
+  final TextEditingController _loginPasswordTextController =
+      TextEditingController();
 
-  late TextEditingController _loginEmailTextController;
-  late TextEditingController _loginPasswordTextController;
-
-  late TextEditingController _registerEmailTextController;
-  late TextEditingController _registerPasswordTextController;
-
-  @override
-  void initState() {
-    super.initState();
-    _loginEmailTextController = TextEditingController();
-    _loginPasswordTextController = TextEditingController();
-    _registerEmailTextController = TextEditingController();
-    _registerPasswordTextController = TextEditingController();
-  }
+  final TextEditingController _registerEmailTextController =
+      TextEditingController();
+  final TextEditingController _registerPasswordTextController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    _mode ??= ModalRoute.of(context)!.settings.arguments as LoginViewModes;
-
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        leading: CloseButton(
-          onPressed: () {
-            _viewModel.closeButtonPressed();
-          },
-        ),
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 800),
-            child: _mode == LoginViewModes.login ? _loginView() : _signinView(),
+    return MVVM<LoginViewModel>.builder(
+      viewModel: getIt<LoginViewModel>(),
+      view: (viewModel) {
+        return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            leading: CloseButton(
+              onPressed: () {
+                viewModel.closeButtonPressed();
+              },
+            ),
           ),
-        ),
-      ),
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 800),
+                child: viewModel.mode == LoginViewModes.login
+                    ? _loginView(viewModel)
+                    : _signinView(viewModel),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
   ///
   /// Create login view
   ///
-  Widget _loginView() {
+  Widget _loginView(LoginViewModel viewModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -82,9 +74,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             TextButton(
               onPressed: () {
-                setState(() {
-                  _mode = LoginViewModes.signup;
-                });
+                viewModel.modeChangedCommand(LoginViewModes.signup);
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -127,9 +117,7 @@ class _LoginViewState extends State<LoginView> {
                         padding: const EdgeInsets.only(bottom: 24, top: 8),
                         child: TextButton(
                           style: _blackTextButtonStyle(),
-                          onPressed: () {
-                            setState(() {});
-                          },
+                          onPressed: () {},
                           child: Text(
                             "login_forget_password".localize(),
                           ),
@@ -138,7 +126,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     OutlinedButton(
                       onPressed: () {
-                        _viewModel.loginWithEmail(
+                        viewModel.loginWithEmail(
                           _loginEmailTextController.text,
                           _loginPasswordTextController.text,
                         );
@@ -163,14 +151,14 @@ class _LoginViewState extends State<LoginView> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: FacebookLoginButton(
                         text: "login_with_facebook".localize(),
-                        pressed: () => _viewModel.loginFacebook(),
+                        pressed: () => viewModel.loginFacebook(),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 24),
                       child: GoogleLoginButton(
                         text: "login_with_google".localize(),
-                        pressed: () => _viewModel.loginGoogle(),
+                        pressed: () => viewModel.loginGoogle(),
                       ),
                     ),
                   ],
@@ -186,7 +174,7 @@ class _LoginViewState extends State<LoginView> {
   ///
   /// Create sign in view
   ///
-  Widget _signinView() {
+  Widget _signinView(LoginViewModel viewModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -205,9 +193,7 @@ class _LoginViewState extends State<LoginView> {
             ),
             TextButton(
               onPressed: () {
-                setState(() {
-                  _mode = LoginViewModes.login;
-                });
+                viewModel.modeChangedCommand(LoginViewModes.login);
               },
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -261,7 +247,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                     OutlinedButton(
                       onPressed: () {
-                        _viewModel.registerWithEmail(
+                        viewModel.registerWithEmail(
                           _registerEmailTextController.text,
                           _registerPasswordTextController.text,
                         );
@@ -286,14 +272,14 @@ class _LoginViewState extends State<LoginView> {
                       padding: const EdgeInsets.only(bottom: 12),
                       child: FacebookLoginButton(
                         text: "signup_with_facebook".localize(),
-                        pressed: () => _viewModel.loginFacebook(),
+                        pressed: () => viewModel.loginFacebook(),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 24),
                       child: GoogleLoginButton(
                         text: "signup_with_google".localize(),
-                        pressed: () => _viewModel.loginGoogle(),
+                        pressed: () => viewModel.loginGoogle(),
                       ),
                     ),
                   ],

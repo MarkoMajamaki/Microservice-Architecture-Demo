@@ -7,12 +7,12 @@ import 'package:identity/models/user.dart';
 import 'package:shared/models/token.dart';
 
 class GoogleLoginService {
-  static final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   ///
   /// Login with Google authentication
   ///
-  static Future<User?> login() async {
+  Future<User?> login() async {
     GoogleSignInAccount? account = await _googleSignIn.signIn();
 
     if (account == null) {
@@ -52,7 +52,7 @@ class GoogleLoginService {
   ///
   /// Logout
   ///
-  static Future logOut() async {
+  Future logOut() async {
     return await _googleSignIn.disconnect();
   }
 }

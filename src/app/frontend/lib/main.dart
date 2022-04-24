@@ -14,6 +14,7 @@ void main() {
     MainModule(),
     CatalogModule(),
     IdentityModule(),
+    // OrderModule(),
   ]);
 
   runApp(const Shell());

@@ -11,7 +11,7 @@ class FacebookLoginService {
   ///
   /// Login with Facebook authentication
   ///
-  static Future<User?> login() async {
+  Future<User?> login() async {
     final LoginResult result = await FacebookAuth.instance.login(
       loginBehavior: LoginBehavior.webOnly,
     );
@@ -59,7 +59,7 @@ class FacebookLoginService {
   ///
   /// Logout from Facebook auth
   ///
-  static Future logout() async {
+  Future logout() async {
     await FacebookAuth.instance.logOut();
   }
 }

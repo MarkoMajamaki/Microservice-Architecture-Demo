@@ -9,7 +9,7 @@ class EmailLoginService {
   ///
   /// Register new user
   ///
-  static Future register(String email, String password) async {
+  Future register(String email, String password) async {
     final request = await post(
       Uri.parse(registerEmailUrl),
       headers: {
@@ -32,7 +32,7 @@ class EmailLoginService {
   ///
   /// Login with email
   ///
-  static Future<User?> login(String email, String password) async {
+  Future<User?> login(String email, String password) async {
     final request = await post(
       Uri.parse(loginEmailUrl),
       headers: {
@@ -64,7 +64,7 @@ class EmailLoginService {
   ///
   /// Logout
   ///
-  static Future logout() {
+  Future logout() {
     throw "Not implemented!";
   }
 }

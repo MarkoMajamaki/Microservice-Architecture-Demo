@@ -31,7 +31,7 @@ class IdentityModule extends Module {
   @override
   Map<String, Widget Function(BuildContext p1)> get routes {
     return {
-      // LoginView.route: (context) => LoginView(),
+      LoginView.route: (context) => LoginView(),
     };
   }
 
@@ -40,7 +40,7 @@ class IdentityModule extends Module {
     if (settings.name == LoginView.route) {
       return PageRouteBuilder(
         settings: settings,
-        pageBuilder: (_, __, ___) => const LoginView(),
+        pageBuilder: (_, __, ___) => LoginView(),
         transitionsBuilder: (_, a, __, c) =>
             FadeTransition(opacity: a, child: c),
       );
