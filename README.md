@@ -1,6 +1,9 @@
 # Microservice architecture demo
 
-Microservice architecture project for learning and testing. 
+Microservice architecture project for learning and testing. All components / modules are not added.
+
+## Target architecture (not ready!)
+![](doc/architecture.png)
 
 ## Frontend
 * Flutter Web / iOS / Android
@@ -14,6 +17,7 @@ Microservice architecture project for learning and testing.
 * Microservices
 * Google and Facebook authentication
 * JWT
+* Polly
 * MassTransit integration events and Sagas
 
 ## CI/CD
@@ -27,11 +31,19 @@ Microservice architecture project for learning and testing.
 * Docker
 * RabbitMQ
 * Kustomize
+* Elastic Search
+* Redis
+
+## Monitoring
+* Prometheus
+* Linkerd
+* ElasticSearch and Kibana to analyze logs
 
 ## Test
 
 * Unit testing with xUnit
 * Integration testing with xUnit, SQL and in memory database 
+* UI testing with Flutter
 
 ## Deployment
 * Azure Kubernetes Services
